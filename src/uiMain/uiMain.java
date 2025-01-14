@@ -2,7 +2,7 @@ package uiMain;
 
 //import gestorAplicacion.*;
 //import baseDatos.*;
-import java.util.Scanner;;
+import java.util.Scanner;
 
 public class uiMain {
 
@@ -11,7 +11,7 @@ public class uiMain {
 
     public static void main(String[] args) {
 
-        System.out.println("Bienvenido a #####");
+        System.out.println("Bienvenido a la Agencia de Viajes Rumbo Aventura");
 
         //Este es el bucle desde el cual se acceden a todas las funciones del programa, se sigue repitiendo hasta presionar 0    
         while (true){
@@ -52,8 +52,8 @@ public class uiMain {
 
                 switch (accion) {
                     case 1:
-                        System.out.println("Has seleccionado reservar una habitación de hotel."+'\n');
-                        reservarHotelInicio();
+                        System.out.println('\n'+"Has seleccionado reservar una habitación de hotel."+'\n');
+                        uiReservaHotel.go();
                         break;
 
                     case 2:
@@ -99,13 +99,13 @@ public class uiMain {
                 siNo=scannerPrompt.nextLine();
 
                 //Si la variable equivale a "s", se cierra el programa
-                if(siNo.equalsIgnoreCase("s")){
+                if(siNo.equalsIgnoreCase("s")||siNo.equalsIgnoreCase("si")){
                     System.out.println("Muchas gracias por utilizar nuestros servicios.");
                     break;
                 }
 
                 //Si equivale a "n", se regresa al bucle principal
-                else if(siNo.equalsIgnoreCase("n")){
+                else if(siNo.equalsIgnoreCase("n")||siNo.equalsIgnoreCase("no")){
                     System.out.println('\n'+"=========="+'\n');
                     continue;
                 }
@@ -121,12 +121,6 @@ public class uiMain {
         }
         //TODO: elaborar un sistema para guardar todo antes de salir, justo aquí.
             
-    }
-
-
-    //TODO; Placeholder funcionalidad reserva hotel
-    public static void reservarHotelInicio(){
-        System.out.println("reserva");
     }
 
     //TODO: Placeholder para funcionalidad de reservar un viaje.
