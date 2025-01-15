@@ -1,12 +1,16 @@
 package gestorAplicacion.reservacionHotel;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import uiMain.uiReservaHotel;
 
 public class Reserva{
 
     //Variables
+
+    private static int idDestino;
+
     private Destino destinoViaje;
     private Hotel hotelViaje;
     private byte lujoHotelViaje;
@@ -20,6 +24,39 @@ public class Reserva{
     //constructor
     public Reserva(Destino destino){
         this.destinoViaje=destino;
+    }
+
+    //GETTERS Y SETTERS
+    public static int getIdDestino() {
+        return idDestino;
+    }
+    public static void setIdDestino(int idDestino) {
+        Reserva.idDestino = idDestino;
+    }
+
+    //BUSCAR DESTINO
+    //Esta funcion busca en destino lugares que coincidan con la búsqueda del usuairo
+    public static ArrayList<Destino> buscarDestino(String keyword){
+        ArrayList<Destino> resultados = Destino.buscarDestino(keyword); //Se va a buscar si el nombre que se introduce existe
+
+        return resultados;
+    }
+
+    //Este método retorna cuantos resultados hay en una consulta por destinos, NO LOS RESULTADOS EN SÍ
+    public static int cantidadResultadosEn123(ArrayList<Destino> resultadoBusqueda){
+        
+        switch (resultadoBusqueda.size()) { //Este switch retorna 0 si hay 0 resultados, 1 si hay 1 y 2 si hay 2 ó más
+            case 0:
+                return 0;
+        
+            case 1:
+                return 1;
+
+            default:
+                return 2;
+
+        }
+
     }
 
     //Colocar fechas
