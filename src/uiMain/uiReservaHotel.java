@@ -42,85 +42,87 @@ public class uiReservaHotel extends uiMain{
     
     public static void buscarContext1(String posibleDestino){ //Este es el método para buscar entre las coincidencias
 
-        int indiceReserva=0;
-        ArrayList<Destino> resultados = Destino.buscarDestino(posibleDestino); //Se va a buscar si el nombre que se introduce existe
+        ArrayList<Destino> resultados = Reserva.buscarDestino(posibleDestino); //Se va a buscar si el nombre que se introduce existe
 
-        if(resultados.isEmpty()){ //Si no hay resultados entonces toca buscar otra vez😢
-            System.out.println("Lo lamentamos, pero no pudimos encontrar tu destino, por favor asegúrate de que el nombre esté bien escrito."+'\n');
-            go();
-        }
+        switch(Reserva.cantidadResultadosEn123(resultados)){
+            case 0: //Si no hay resultados entonces toca buscar otra vez😢
+                System.out.println("Lo lamentamos, pero no pudimos encontrar tu destino, por favor asegúrate de que el nombre esté bien escrito."+'\n');
+                go();
+                break;
+        
 
-        //A partir de aquí se puede crear la reserva
-        else if (resultados.size()==1){ //Este else if y el else de abajo es por si se encuentran uno o varios resultados, para aplicar el plural
-            System.out.println("Este fue el resultado que encontramos: ");
+            //A partir de aquí se puede crear la reserva
+            case 1: //Este else if y el else de abajo es por si se encuentran uno o varios resultados, para aplicar el plural
+                System.out.println("Este fue el resultado que encontramos: ");
 
-            System.out.println("- "+resultados.get(0).getNombre()+", "+resultados.get(0).getPais()+".");
+                System.out.println("- "+resultados.get(0).getNombre()+", "+resultados.get(0).getPais()+".");
 
-            System.out.println("¿Es este el resultado correcto? (S/N)");
-            String eleccion = scannerPrompt.nextLine(); //Este if es para verificar si el destino encontrado es el correcto
+                System.out.println("¿Es este el resultado correcto? (S/N)");
+                String eleccion = scannerPrompt.nextLine(); //Este if es para verificar si el destino encontrado es el correcto
 
-            if (eleccion.equalsIgnoreCase("s")||eleccion.equalsIgnoreCase("si")){
+                if (eleccion.equalsIgnoreCase("s")||eleccion.equalsIgnoreCase("si")){
 
-                //Se crea el indice de la reserva
-                indiceReserva=0;
+                    //Se actualiza el indice de la reserva
+                    Reserva.setIdDestino(0);
 
-            }
-            else if(eleccion.equalsIgnoreCase("n")||eleccion.equalsIgnoreCase("no")){
-                System.out.println("Lamentamos que ese no sea tu destino, por favor asegúrate de que el nombre esté bien escrito."+'\n');
-                go(); //Si no es el destino vuelve al inicio
-            }
-            else{
-                System.out.println("Por favor introduce una opción válida."+'\n');
-                buscarContext1(posibleDestino); //Si se introduce lo que no es, vuelve a buscarcontext1(String posibleDestino)
-            }
-
-        }
-        else{
-            System.out.println("Estos fueron los resultados que encontramos: ");
-
-            int accion=0;//Este es el número del destino que va a escojer el usuario
-            while(true){
-
-                int i=1; //Se listan las opciones
-                for(Destino resultado: resultados){
-                    System.out.println(i+". "+resultado.getNombre()+", "+resultado.getPais()+".");
-                    i++;
                 }
+                else if(eleccion.equalsIgnoreCase("n")||eleccion.equalsIgnoreCase("no")){
+                    System.out.println("Lamentamos que ese no sea tu destino, por favor asegúrate de que el nombre esté bien escrito."+'\n');
+                    go(); //Si no es el destino vuelve al inicio
+                }
+                else{
+                    System.out.println("Por favor introduce una opción válida."+'\n');
+                    buscarContext1(posibleDestino); //Si se introduce lo que no es, vuelve a buscarcontext1(String posibleDestino)
+                }
+                break;
 
-                System.out.println("Por favor selecciona el número asociado a tu destino.");
+        
+            case 2:
+                System.out.println("Estos fueron los resultados que encontramos: ");
 
-                try{
+                int accion=0;//Este es el número del destino que va a escojer el usuario
+                while(true){
 
-                    accion = Integer.parseInt(scannerPrompt.nextLine()); //Espacio para introducir el número del destino, según aparecen listados
-                    if(accion<=resultados.size()&&accion>0){
-                        break;
+                    int i=1; //Se listan las opciones
+                    for(Destino resultado: resultados){
+                        System.out.println(i+". "+resultado.getNombre()+", "+resultado.getPais()+".");
+                        i++;
                     }
-                    else{
-                        System.out.println("Por favor selecciona una opción válida.");
-                        continue;
-                    }
+
+                    System.out.println("Por favor introduce el número asociado a tu destino.");
+
+                    try{
+
+                        accion = Integer.parseInt(scannerPrompt.nextLine()); //Espacio para introducir el número del destino, según aparecen listados
+                        if(accion<=resultados.size()&&accion>0){
+                            break;
+                        }
+                        else{
+                            System.out.println("Por favor selecciona una opción válida.");
+                            continue;
+                        }
                     
-                }
-                //Si se introduce algo que no sea un int, se atrapa la excepción y sale el mensaje de que se deben introducir números
-                catch(NumberFormatException e){
+                    }
+                    //Si se introduce algo que no sea un int, se atrapa la excepción y sale el mensaje de que se deben introducir números
+                    catch(NumberFormatException e){
     
-                    System.out.println("Por favor introduce un valor válido."+'\n'+'\n'+
-                    "==========");
-                    //Se regresa al inicio del bucle
-                    continue;
+                        System.out.println("Por favor introduce un valor válido."+'\n'+'\n'+
+                        "==========");
+                        //Se regresa al inicio del bucle
+                        continue;
     
+                    }
+
                 }
 
+                Reserva.setIdDestino(accion-1); //Se actualiza el indice de la reserva, se resta 1 porque los índices del array comienzan en 0
+            
             }
 
-            indiceReserva=accion-1; //Se crea el indice de la reserva, se resta 1 porque los índices del array comienzan en 0
-            
-        }
-
-        Reserva reservaUsuario = new Reserva(resultados.get(indiceReserva));
-        fechas(reservaUsuario, true); //Se pasa a las fechas, se pone true porque no hay inconvenientes
+            Reserva reservaUsuario = new Reserva(resultados.get(Reserva.getIdDestino()));
+            fechas(reservaUsuario, true); //Se pasa a las fechas, se pone true porque no hay inconvenientes
     
-    }
+        }
 
 
     public static void fechas(Reserva reservaUsuario, boolean condicion){ //True significa que todo está bien, false que toca mostrar mensaje de error
