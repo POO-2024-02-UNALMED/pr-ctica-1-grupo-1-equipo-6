@@ -134,14 +134,23 @@ public class Destino {
     public static ArrayList<Destino> generadorDeDatos(){ //Este metodo incluye los elementos prefabricados, si no los existen
         ArrayList<Destino> destinos = new ArrayList<Destino>();
 
-        destinos.add(new Destino("París","paris", "Francia", "Île-de-France",azar(0,10),
-        azar(0,2), 4, List.of(new Hotel(), new Hotel(), new Hotel())));
+        destinos.add(new Destino("París","paris", "Francia", "Île-de-France",azar(0,5),
+        azar(0,2), 4, 
+        List.of(new Hotel("A",1,2,1,azar(7, 10),azar(30, 100)),
+         new Hotel("B",18,8,3,azar(7, 10),azar(30, 100)),
+          new Hotel("C",20,9,19,azar(7, 10),azar(30, 100)))));
 
         destinos.add(new Destino("Nueva York", "new york", "Estados Unidos", "Nueva York",
-        azar(0,10), azar(0,2),4, List.of(new Hotel(), new Hotel(), new Hotel())));
+        azar(0,5), azar(0,2),4, 
+        List.of(new Hotel("A",5,13,9,azar(7, 10),azar(30, 100)),
+        new Hotel("B",21,18,22,azar(7, 10),azar(30, 100)),
+         new Hotel("C",9,30,20,azar(7, 10),azar(30, 100)))));
 
-        destinos.add(new Destino("Cartagena", "costa", "Colombia", "Caribe",
-        azar(0,10), azar(0,2),4, List.of(new Hotel(), new Hotel(), new Hotel())));
+        destinos.add(new Destino("Cartagena", "paris", "Colombia", "Caribe", //TODO: cambiar nombre alterno
+        azar(0,5), azar(0,2),4, 
+        List.of(new Hotel("A",6,5,24,azar(7, 10),azar(30, 100)),
+        new Hotel("B",16,22,10,azar(7, 10),azar(30, 100)),
+         new Hotel("C",24,25,6,azar(7, 10),azar(30, 100)))));
 
         //TODO: Agregar más destinos
 
@@ -151,6 +160,5 @@ public class Destino {
     private static int azar(int min, int max){ //Este metodo genera números al azar, de un mínimo a un máximo, solo se usa para generar objetos por primera vez
         return (int) (min+(Math.random()*(max-min)));
     }
-
     
 }
