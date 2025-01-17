@@ -1,3 +1,5 @@
+//Inicialmente codificado por Alejandro Pérez Barrera
+
 package uiMain;
 
 //import gestorAplicacion.*;
@@ -53,7 +55,7 @@ public class uiMain {
                 switch (accion) {
                     case 1:
                         System.out.println('\n'+"Has seleccionado reservar una habitación de hotel."+'\n');
-                        uiReservaHotel.go(false); //El boolean indica que esto es una reserva nueva, no una modificación
+                        uiReservaHotel.go(false, null); //El boolean indica que esto es una reserva nueva, no una modificación
                         break;
 
                     case 2:

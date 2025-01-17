@@ -1,6 +1,9 @@
+//Codificado por Alejandro Pérez Barrera
+
 package uiMain;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -10,7 +13,7 @@ import gestorAplicacion.reservacionHotel.Reserva;
 
 public class uiReservaHotel extends uiMain{
     
-    public static void go(boolean modificar){
+    public static void go(boolean modificar, Reserva reservaModificada){ //modificar y reservaModificada solo importan al cambiar el destino y hotel
 
         if(!modificar){//Esto se imprime si no se va a modificar el destino
             System.out.println("¿A dónde deseas viajar? Escribe el nombre de tu destino, o escribe 0 (cero) para ver todos nuestros destinos.");
@@ -26,34 +29,50 @@ public class uiReservaHotel extends uiMain{
 
             //Mostrar todos los destinos en un listado
             System.out.println("Mostrando nuestros destinos: ");
-            int i=1; //Este valor enumera los destinos
+
             for(Destino destino : Destino.getDestinos()){ //Se muestra una lista con los destinos
-                System.out.println(i+". "+destino.getNombre()+", "+destino.getPais()+".");
-                i++;
+                System.out.println("- "+destino.getNombre()+", "+destino.getPais()+".");
             }
 
             System.out.println("Escribe el nombre de tu destino.");
             posibleDestino = scannerPrompt.nextLine();
-            buscarContext1(modificar, posibleDestino);
+            //Si no es una modificación, no se pasa ninguna reserva
+            if(!modificar){
+                buscarContext0(modificar, posibleDestino);
+            }
+            else{
+                buscarContext0(modificar, reservaModificada, posibleDestino);
+            }
 
         }
         else if (posibleDestino.equals("9")&&!modificar){
             System.out.println("Regresando al menú principal..."+'\n');
             //Esta condición se queda vacía para devolverse inmediatamente al bucle principal
         }
+        else if(!modificar){ //Si no es una modificación, no se pasa ninguna reserva
+            buscarContext0(modificar, posibleDestino);
+        }
         else{
-            buscarContext1(modificar, posibleDestino);
+            buscarContext0(modificar, reservaModificada, posibleDestino);
         }
     }
     
-    public static void buscarContext1(boolean modificar, String posibleDestino){ //Este es el método para buscar entre las coincidencias
+    //el metodo buscarcontext0 se sobrecarga para definir a reserva como null, de ser esta la primera vez que se reserva
+    public static void buscarContext0(boolean modificar, Reserva reservaUsuario, String posibleDestino){
+        buscarContext1(modificar, reservaUsuario, posibleDestino);
+    }
+    public static void buscarContext0(boolean modificar, String posibleDestino){
+        buscarContext1(modificar, null, posibleDestino);
+    }
+
+    public static void buscarContext1(boolean modificar, Reserva reservaModificada, String posibleDestino){ //Este es el método para buscar entre las coincidencias
 
         ArrayList<Destino> resultados = Reserva.buscarDestino(posibleDestino); //Se va a buscar si el nombre que se introduce existe
 
         switch(Reserva.cantidadResultadosEn123(resultados)){
             case 0: //Si no hay resultados entonces toca buscar otra vez😢
                 System.out.println("Lo lamentamos, pero no pudimos encontrar tu destino, por favor asegúrate de que el nombre esté bien escrito."+'\n');
-                go(modificar);
+                go(modificar, reservaModificada);
                 break;
         
 
@@ -74,11 +93,11 @@ public class uiReservaHotel extends uiMain{
                 }
                 else if(eleccion.equalsIgnoreCase("n")||eleccion.equalsIgnoreCase("no")){
                     System.out.println("Lamentamos que ese no sea tu destino, por favor asegúrate de que el nombre esté bien escrito."+'\n');
-                    go(modificar); //Si no es el destino vuelve al inicio
+                    go(modificar,reservaModificada); //Si no es el destino vuelve al inicio
                 }
                 else{
                     System.out.println("Por favor introduce una opción válida."+'\n');
-                    buscarContext1(modificar, posibleDestino); //Si se introduce lo que no es, vuelve a buscarcontext1(String posibleDestino)
+                    buscarContext0(modificar, posibleDestino); //Si se introduce lo que no es, vuelve a buscarcontext1(String posibleDestino)
                 }
                 break;
 
@@ -135,9 +154,13 @@ public class uiReservaHotel extends uiMain{
             
             }
 
+            //Si se está modificando una reserva, solo se le cambia el hotel, de lo contrario, se crea una nueva y se pasa a fechas
             if(!modificar){
                 Reserva reservaUsuario = new Reserva(resultados.get(Reserva.getIdDestino()));
                 fechas(modificar, reservaUsuario, true); //Se pasa a las fechas, se pone true porque no hay inconvenientes
+            }
+            else{
+                reservaModificada.setDestinoViaje(resultados.get(Reserva.getIdDestino()));
             }
     
         }
@@ -188,9 +211,8 @@ public class uiReservaHotel extends uiMain{
 
         }
 
-        if(!modificar){
-            reservaUsuario.setAmbasFechas(modificar, fechaLlegada, fechaSalida);
-        }
+        reservaUsuario.setAmbasFechas(modificar, fechaLlegada, fechaSalida);
+        
         
     }
 
@@ -250,6 +272,7 @@ public class uiReservaHotel extends uiMain{
         
         //Elegir hotel
         int accion=0;
+        Hotel hotelSelecto=null;
         while(true){
     
             try{
@@ -266,18 +289,87 @@ public class uiReservaHotel extends uiMain{
 
                 accion=Integer.parseInt(scannerPrompt.nextLine());
 
-                if(accion<=opcionHoteles.size()&&accion>0){
+                if(accion<=opcionHoteles.size()&&accion>0){//Cuando se selecciona un hotel válido, se pasan los precios de ese hotel a un Arraylist
 
-                    ArrayList<Float> preciosNocheListados =reservaUsuario.getDestinoViaje().getHotelesDestino().get(accion-1).listarPrecios();
-                    System.out.println(preciosNocheListados);
+                    //Se define de manera provisoria un hotel seleccionado por el viajero, todavía no se asigna en la reserva
+                    hotelSelecto=reservaUsuario.getDestinoViaje().getHotelesDestino().get(accion-1);
+                    //Este Array guarda los precios en orden
+                    ArrayList<Float> preciosNocheListados = reservaUsuario.getDestinoViaje().getHotelesDestino().get(accion-1).listarPrecios();
+                    
+                    System.out.println("Habitaciones disponibles:");
+
+                    for(int j=0; j<preciosNocheListados.size();j++){//Se va a pasar por cada elemento del array
+                        if(preciosNocheListados.get(j)!=null){//Esto se ejecuta solo si una posición del array no es null, por cada posición
+
+                            //System.out.println("Switch");
+                            switch (j) {//Este switch solo cambia el tipo de cuarto en el print
+                                case 0:
+                                    System.out.print((j+1)+". Cuarto simple: $");
+                                    break;
+
+                                case 2:
+                                    System.out.print((j+1)+". Suite Premium: $");
+                                    break;
+                            
+                                default:
+                                    System.out.print((j+1)+". Habitación ejecutiva: $");
+                                    break;
+                            }
+                            System.out.println(String.format("%,.2f",preciosNocheListados.get(j)));
+
+                        }
+                    }
+
+                    System.out.println('\n'+"*Todos los precios están en pesos colombianos (COP)."+'\n');
+                    System.out.println("Por favor digita en el número asociado a un tipo de habitación para reservarla.");
+
+                    //Esta parte es para elegir la habitación, que el número sea válido y hayan habitaciones de este tipo
+                    accion=Integer.parseInt(scannerPrompt.nextLine());
+                    if(accion<=preciosNocheListados.size()&&accion>0&&preciosNocheListados.get(accion-1)!=null){
+
+                        System.out.println("¿Es esta la habitación correcta? (S/N)");
+                        
+                        switch (accion) {//Switch solo es para imprimir el tipo de cuarto
+                            case 1:
+                                System.out.print("- Cuarto simple: $");
+                                break;
+                        
+                            case 2:
+                                System.out.print("- Habitación ejecutiva: $");
+                                break;
+
+                            case 3:
+                                System.out.print("- Suite Premium: $");
+                                break;
+                        }
+                        System.out.println(String.format("%,.2f",preciosNocheListados.get(accion-1)));
+
+                        String eleccion= scannerPrompt.nextLine();
+
+                        //Al verificar el usuario el tipo de cuarto:
+                        if(eleccion.equalsIgnoreCase("s")||eleccion.equalsIgnoreCase("si")){
+
+                            reservaUsuario.setLujoHotelViaje((byte)(accion-1)); //Se le asgina a reserva el lujo del hotel
+                            reservaUsuario.setHotelViaje(hotelSelecto); //Se le asigna a reserva el hotel
+                            reservaUsuario.setPrecioTotal(reservaUsuario.calculoEstadiaTotal()); //Se le asigna a reserva el precio
+
+                            break;
+                        }
+                        else{ 
+                            continue;
+                        }
+                        
+                    }
+                    else{
+                        System.out.println("Por favor selecciona una opción válida.");
+                        continue;
+                    }
                     
                 }
                 else{
                     System.out.println("Por favor selecciona una opción válida.");
                     continue;
                 }                
-
-                break;
                 
             }
             //Si se introduce algo que no sea un int, se atrapa la excepción y sale el mensaje de que se deben introducir números
@@ -292,5 +384,114 @@ public class uiReservaHotel extends uiMain{
     
         }
 
+        revision(reservaUsuario);
+
     }
+
+    public static void revision(Reserva reservaUsuario){
+
+        //Impreso, un resumen de todo
+        System.out.println('\n'+"Este es el resumen de tu reserva:");
+        System.out.println("    Destino: "+reservaUsuario.getDestinoViaje().getNombre()+", "+reservaUsuario.getDestinoViaje().getPais()+".");
+        System.out.println("    Fecha de llegada: "+reservaUsuario.getFechaLlegar().toString()+".");
+        System.out.println("    Fecha de salida: "+reservaUsuario.getFechaSalir().toString()+".");
+        System.out.println("    Estadía: "+reservaUsuario.getEstadia()+" noches.");
+        System.out.println("    Viajeros adultos: "+reservaUsuario.getViajerosAdultos()+".");
+        System.out.println("    Viajeros menores de edad: "+reservaUsuario.getViejerosMenores()+".");
+        System.out.println("    Hotel: "+reservaUsuario.getHotelViaje().getNombre()+".");
+        System.out.print("  Tipo de habitación: ");
+
+        switch (reservaUsuario.getLujoHotelViaje()) {
+            case 0:
+                System.out.println("Cuarto simple.");
+                break;
+        
+            case 1:
+                System.out.println("Habitación ejecutiva.");
+                break;
+
+            case 2:
+                System.out.println("Suite Premium.");
+                break;
+        }
+
+        System.out.println('\n'+"   El total a pagar es: $"+(String.format("%,.2f", reservaUsuario.getPrecioTotal()))+'\n');
+
+        System.out.println("¿Estás conforme con tu reserva? ¿Deseas cambiar algo?"+'\n'+"Presiona 1 para confirmar tu reserva."+'\n'+"Presiona 2 para modificarla."+'\n'+"Presiona 0 para cancelar.");
+
+        while(true){
+            String eleccion =scannerPrompt.nextLine();
+
+            if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){
+                confirmacion(reservaUsuario);//Método para confirmar
+                break;
+            }
+            else if(eleccion.equals("2")||eleccion.equalsIgnoreCase("dos")){
+                modificar(reservaUsuario); //Método para cambiar algo
+                break;
+            }
+            else if(eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
+                reservaUsuario=null;
+                break;
+            }
+            else{
+                System.out.println("Por favor introduce una opción válida.");
+                continue;
+            }
+        
+        }
+
+    }
+
+    public static void confirmacion(Reserva reservaUsuario){
+
+        reservaUsuario.confirmarHotel();
+        System.out.println("Tu hotel ha sido reservado de manera exitosa.");
+
+    }
+
+    public static void modificar(Reserva reservaUsuario){ //Si hay algo mal con la reserva, este método es para modificar
+
+        System.out.println("¿Que deseas modificar? Selecciona el número que corresponda a la operación que deseas realizar."+'\n'+
+                           "1. Modificar destino."+'\n'+
+                           "2. Modificar fechas."+'\n'+
+                           "3. Modificar el número de personas."+'\n'+
+                           "4. Modificar hotel y/o habitación."+'\n'+
+                           "0. Regresar");
+        
+        String eleccion =scannerPrompt.nextLine();
+
+        if (eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
+            
+        }
+
+        else if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){
+            go(true, reservaUsuario);
+            ArrayList<Hotel> hoteles= new ArrayList<>();
+            hoteles.addAll(reservaUsuario.getDestinoViaje().getHotelesDestino());
+            listarHoteles(true, reservaUsuario, hoteles);
+        }
+
+        else if(eleccion.equals("2")||eleccion.equalsIgnoreCase("dos")){
+            fechas(true, reservaUsuario, true);
+        }
+
+        else if(eleccion.equals("3")||eleccion.equalsIgnoreCase("tres")){
+            viajeros(true, reservaUsuario, true, true);
+        }
+
+        else if(eleccion.equals("4")||eleccion.equalsIgnoreCase("cuatro")){
+            ArrayList<Hotel> hoteles= new ArrayList<>();
+            hoteles.addAll(reservaUsuario.getDestinoViaje().getHotelesDestino());
+            listarHoteles(true, reservaUsuario, hoteles);
+        }
+
+        else{
+            System.out.println("Por favor introduce un valor válido.");
+        }
+
+        revision(reservaUsuario);
+
+    }
+
 }
