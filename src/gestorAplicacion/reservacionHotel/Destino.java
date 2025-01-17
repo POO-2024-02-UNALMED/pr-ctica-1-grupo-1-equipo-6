@@ -1,3 +1,5 @@
+//Codificado por Alejandro Pérez Barrera
+
 package gestorAplicacion.reservacionHotel;
 
 import java.util.*;
@@ -131,26 +133,41 @@ public class Destino {
         return aRetornar; //Se regresa el array temporal
     }
 
+    public void reservaHecha(Hotel hotelReservado, byte lujoReserva, float deltaDemanda){
+
+        float hotelPrestigio= hotelReservado.getPrestigio();
+        
+        if (deltaDemanda > 0.35 && hotelPrestigio > 8.65f) {  //Si la demanda sube lo sufuciente en un hotel prestigioso, sube la fama del destino
+            this.fama += deltaDemanda * hotelPrestigio / 20; 
+            fama = Math.min(this.fama, 5.0f);  //Si la fama se pasa de 5 se rompe la economía
+        }
+        
+        if((lujoReserva==3||deltaDemanda>0.45)&&this.temporada<2){
+            this.temporada++;
+        }
+
+    }
+
     public static ArrayList<Destino> generadorDeDatos(){ //Este metodo incluye los elementos prefabricados, si no los existen
         ArrayList<Destino> destinos = new ArrayList<Destino>();
 
         destinos.add(new Destino("París","paris", "Francia", "Île-de-France",azar(0,5),
         azar(0,2), 4, 
-        List.of(new Hotel("A",1,2,1,azar(7, 10),azar(30, 100)),
-         new Hotel("B",18,8,3,azar(7, 10),azar(30, 100)),
-          new Hotel("C",20,9,19,azar(7, 10),azar(30, 100)))));
+        List.of(new Hotel("A",1,2,1,azar(4, 10),azar(30, 100)),
+         new Hotel("B",18,8,3,azar(4, 10),azar(30, 100)),
+          new Hotel("C",20,9,19,azar(4, 10),azar(30, 100)))));
 
         destinos.add(new Destino("Nueva York", "new york", "Estados Unidos", "Nueva York",
         azar(0,5), azar(0,2),4, 
-        List.of(new Hotel("A",5,13,9,azar(7, 10),azar(30, 100)),
-        new Hotel("B",21,18,22,azar(7, 10),azar(30, 100)),
-         new Hotel("C",9,30,20,azar(7, 10),azar(30, 100)))));
+        List.of(new Hotel("A",5,13,9,azar(4, 10),azar(30, 100)),
+        new Hotel("B",21,18,22,azar(4, 10),azar(30, 100)),
+         new Hotel("C",9,30,20,azar(4, 10),azar(30, 100)))));
 
         destinos.add(new Destino("Cartagena", "paris", "Colombia", "Caribe", //TODO: cambiar nombre alterno
         azar(0,5), azar(0,2),4, 
-        List.of(new Hotel("A",6,5,24,azar(7, 10),azar(30, 100)),
-        new Hotel("B",16,22,10,azar(7, 10),azar(30, 100)),
-         new Hotel("C",24,25,6,azar(7, 10),azar(30, 100)))));
+        List.of(new Hotel("A",6,5,24,azar(4, 10),azar(30, 100)),
+        new Hotel("B",16,22,10,azar(4, 10),azar(30, 100)),
+         new Hotel("C",24,25,6,azar(4, 10),azar(30, 100)))));
 
         //TODO: Agregar más destinos
 

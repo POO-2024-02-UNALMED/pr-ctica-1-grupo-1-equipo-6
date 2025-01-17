@@ -1,3 +1,5 @@
+//Codificado por Alejandro Pérez Barrera
+
 package gestorAplicacion.reservacionHotel;
 
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class Hotel {
         if(altos<1){altos=1;}else if(altos>30){altos=30;}
 
         //Esta es la fórmula para la demanda
-        float calculuDemanda=(float) ((float)((1.2*altos*prestigio)+(0.79*medios*prestigio)+(0.05*simples*prestigio))/(((0.93*altos)*simples*medios)-1)+1.2);
+        float calculuDemanda=(float) ((float)(((1.2*altos*prestigio)+(0.79*medios*prestigio)+(0.05*simples*prestigio))/(((0.93*altos)*simples*medios)-1))+1.2);
 
         //Si la demanda se escapa del rango [0,10], se regresa a 10
         if(calculuDemanda>10||calculuDemanda<0){calculuDemanda=10;}
@@ -97,13 +99,34 @@ public class Hotel {
 
     }
 
+    public float calcularPrecioTotal(byte lujo, int estadia){
+
+        float total=0f;
+
+        if(lujo==0){
+            total= (float)((this.precEspNoc*0.85)*estadia);
+            
+        }
+        else if(lujo==1){
+            total= (float)((this.precEspNoc*1.3)*estadia);
+            
+        }
+        else{
+            total= (float)((this.precEspNoc*1.6)*estadia);
+           
+        }
+
+        return total;
+
+    }
+
     public ArrayList<Float> listarPrecios(){
 
         ArrayList<Float> precios= new ArrayList<Float>();
         
         //Si hay cuartos disponibles, se multiplican por su lujo respectivo y el resultado se mete en un array, en una posición en particular
         //Si no hay cuartos, esa misma posición se asigna como null, y el programa asume que no hay habitaciones de ese tipo.
-        System.out.println("cuartos"+this.cuartosSimples+" "+this.cuartosIntermedios+" "+this.cuartosLujosos);
+        //System.out.println("cuartos"+this.cuartosSimples+" "+this.cuartosIntermedios+" "+this.cuartosLujosos);
 
         if(this.cuartosSimples>=1){ precios.add(0, (float)(this.precEspNoc*0.85));} else{precios.add(0, null);}
         
@@ -113,6 +136,30 @@ public class Hotel {
 
         return precios;
         
+    }
+
+    public void cuartoReservado(int noches, byte lujo, int personas, Destino destino){
+
+        if(lujo==0&&this.cuartosSimples>0){
+            this.cuartosSimples--;
+        }
+        else if(lujo==1&&this.cuartosIntermedios>0){
+            this.cuartosIntermedios--;
+        }
+        else if(lujo==2&&this.cuartosLujosos>0){
+            this.cuartosLujosos--;
+        }
+        else{}
+
+        float demandaPrevia=this.demanda;
+        this.demanda=calcularDemanda(this.cuartosSimples, this.cuartosIntermedios, this.cuartosLujosos, this.prestigio);
+
+        destino.reservaHecha(this, lujo, deltaDemanda(demandaPrevia));
+
+    }
+
+    private float deltaDemanda(float demandaPrevia){
+        return this.demanda-demandaPrevia;
     }
 
 }

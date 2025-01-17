@@ -1,3 +1,5 @@
+//Codificado por Alejandro Pérez Barrera
+
 package gestorAplicacion.reservacionHotel;
 
 import java.time.LocalDate;
@@ -61,6 +63,41 @@ public class Reserva{
     }
     public void setEstadia(int estadia) {
         this.estadia = estadia;
+    }
+
+    public Hotel getHotelViaje() {
+        return hotelViaje;
+    }
+    public void setHotelViaje(Hotel hotelViaje) {
+        this.hotelViaje = hotelViaje;
+    }
+
+    public void setLujoHotelViaje(byte lujoHotelViaje) {
+        this.lujoHotelViaje = lujoHotelViaje;
+    }
+    public byte getLujoHotelViaje() {
+        return lujoHotelViaje;
+    }
+
+    public LocalDate getFechaLlegar() {
+        return fechaLlegar;
+    }
+    public void setFechaLlegar(LocalDate fechaLlegar) {
+        this.fechaLlegar = fechaLlegar;
+    }
+
+    public void setFechaSalir(LocalDate fechaSalir) {
+        this.fechaSalir = fechaSalir;
+    }
+    public LocalDate getFechaSalir() {
+        return fechaSalir;
+    }
+
+    public void setPrecioTotal(float precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+    public float getPrecioTotal() {
+        return precioTotal;
     }
 
     //BUSCAR DESTINO
@@ -137,6 +174,17 @@ public class Reserva{
         else{
             uiReservaHotel.viajeros(modificar, this, false, false); //En su defecto, se asume de inválido y de falso
         }
+
+    }
+
+    public float calculoEstadiaTotal(){
+        
+        this.precioTotal= this.hotelViaje.calcularPrecioTotal(this.lujoHotelViaje,this.estadia);
+        return this.precioTotal;
+    }
+
+    public void confirmarHotel(){
+        this.hotelViaje.cuartoReservado(this.estadia, this.lujoHotelViaje, (this.viajerosAdultos+this.viejerosMenores), this.destinoViaje);
 
     }
 
