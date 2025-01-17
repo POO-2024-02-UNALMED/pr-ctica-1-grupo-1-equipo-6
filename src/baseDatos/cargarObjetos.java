@@ -1,3 +1,5 @@
+//Inicialmente codificado por Alejandro Pérez Barrera
+
 package baseDatos;
 
 import java.io.FileInputStream;
