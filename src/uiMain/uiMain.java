@@ -2,8 +2,8 @@
 
 package uiMain;
 
-//import gestorAplicacion.*;
-//import baseDatos.*;
+import gestorAplicacion.*;
+import baseDatos.*;
 import java.util.Scanner;
 
 public class uiMain {
@@ -103,7 +103,15 @@ public class uiMain {
                 //Si la variable equivale a "s", se cierra el programa
                 if(siNo.equalsIgnoreCase("s")||siNo.equalsIgnoreCase("si")){
                     System.out.println("Muchas gracias por utilizar nuestros servicios.");
-                    break;
+
+                    //AQUÍ COMIENZA EN GUARDAR LOS DATOS
+                    if(!baseDatos.guardarObjetos.guardar(gestorAplicacion.reservacionHotel.Destino.getDestinos())){//Aquí se verifica si se guardaron lo datos de los destinos y hoteles tras reservar
+                        System.out.println("Ha ocurrido un error al guardar destinos.");
+                        continue;
+                    }
+                    else{ break;}
+                    //TODO: elaborar un sistema para guardar todo antes de salir, justo aquí.
+                    
                 }
 
                 //Si equivale a "n", se regresa al bucle principal
@@ -121,7 +129,6 @@ public class uiMain {
             }
 
         }
-        //TODO: elaborar un sistema para guardar todo antes de salir, justo aquí.
             
     }
 

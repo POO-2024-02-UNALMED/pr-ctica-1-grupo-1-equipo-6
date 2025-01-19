@@ -3,7 +3,7 @@
 package uiMain;
 
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -388,7 +388,7 @@ public class uiReservaHotel extends uiMain{
 
     }
 
-    public static void revision(Reserva reservaUsuario){
+    public static void revision(Reserva reservaUsuario){ //Este método le muestra al usuario un resumen de toda la reserva
 
         //Impreso, un resumen de todo
         System.out.println('\n'+"Este es el resumen de tu reserva:");
@@ -417,9 +417,9 @@ public class uiReservaHotel extends uiMain{
 
         System.out.println('\n'+"   El total a pagar es: $"+(String.format("%,.2f", reservaUsuario.getPrecioTotal()))+'\n');
 
-        System.out.println("¿Estás conforme con tu reserva? ¿Deseas cambiar algo?"+'\n'+"Presiona 1 para confirmar tu reserva."+'\n'+"Presiona 2 para modificarla."+'\n'+"Presiona 0 para cancelar.");
+        System.out.println("¿Estás conforme con tu reserva? ¿Deseas cambiar algo?"+'\n'+"Presiona 1 para confirmar tu reserva."+'\n'+"Presiona 2 para modificarla."+'\n'+"Presiona 0 para cancelar la reserva.");
 
-        while(true){
+        while(true){//Switch para las opctiones
             String eleccion =scannerPrompt.nextLine();
 
             if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){
@@ -443,7 +443,7 @@ public class uiReservaHotel extends uiMain{
 
     }
 
-    public static void confirmacion(Reserva reservaUsuario){
+    public static void confirmacion(Reserva reservaUsuario){ //Este es el método para confirmar las elecciones
 
         reservaUsuario.confirmarHotel();
         System.out.println("Tu hotel ha sido reservado de manera exitosa.");
@@ -462,10 +462,10 @@ public class uiReservaHotel extends uiMain{
         String eleccion =scannerPrompt.nextLine();
 
         if (eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
-            
+            //Presionar 0 regresa a confirmación
         }
 
-        else if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){
+        else if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){ //presionar 1 es para cambiar el destino y hotel
             go(true, reservaUsuario);
             ArrayList<Hotel> hoteles= new ArrayList<>();
             hoteles.addAll(reservaUsuario.getDestinoViaje().getHotelesDestino());
@@ -473,14 +473,14 @@ public class uiReservaHotel extends uiMain{
         }
 
         else if(eleccion.equals("2")||eleccion.equalsIgnoreCase("dos")){
-            fechas(true, reservaUsuario, true);
+            fechas(true, reservaUsuario, true); //Presionar 2 para cambiar las fechas
         }
 
         else if(eleccion.equals("3")||eleccion.equalsIgnoreCase("tres")){
-            viajeros(true, reservaUsuario, true, true);
+            viajeros(true, reservaUsuario, true, true); //prsionar 3 permite cambio de nro de viajeros
         }
 
-        else if(eleccion.equals("4")||eleccion.equalsIgnoreCase("cuatro")){
+        else if(eleccion.equals("4")||eleccion.equalsIgnoreCase("cuatro")){ //Esta opcion es para cambiar el hotel y/o el cuarto
             ArrayList<Hotel> hoteles= new ArrayList<>();
             hoteles.addAll(reservaUsuario.getDestinoViaje().getHotelesDestino());
             listarHoteles(true, reservaUsuario, hoteles);
