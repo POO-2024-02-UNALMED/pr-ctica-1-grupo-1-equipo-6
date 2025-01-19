@@ -2,9 +2,12 @@
 
 package gestorAplicacion.reservacionHotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Hotel {
+public class Hotel implements Serializable{
+
+    private static final int sesgo=600; //El sesgo permite ajustar los precios de manera directa, el valor 600 es para utilizar pesos colombianos como moneda, pero puede ser cualquier valor
 
     private String nombre;
     private int cuartosSimples;
@@ -74,8 +77,6 @@ public class Hotel {
 
         float viajeros=(float) (1+((adultosReserva+(1.2*menoresReserva))/(adultosReserva+menoresReserva+5)));//Esta fórmula permite obtener un factor, dependiendo del número de viajeros adultos y niños
         //Los niños hacen que el precio suba más (multiplicar por 1.2), y abajo se suma 5, para hacer que a los grupos más grandes les sea más económico viajar
-
-        int sesgo=600; //El sesgo permite ajustar los precios de manera directa, el valor 600 es para utilizar pesos colombianos como moneda, pero puede ser cualquier valor
 
         //Dependiendo de la temporada, se va a multiplicar un recargo distinto (0.85, 1, 1.3)
         switch (temporadaDestino) {//Esta fórmula como tal determina el precio con el recargo del hotel, la fama del destino, prestigio y demanda del hotel, viajeros y el sesgo

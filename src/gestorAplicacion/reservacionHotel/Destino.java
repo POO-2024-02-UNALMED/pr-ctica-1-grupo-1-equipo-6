@@ -4,9 +4,11 @@ package gestorAplicacion.reservacionHotel;
 
 import java.util.*;
 import baseDatos.cargarObjetos;
+
+import java.io.Serializable;
 import java.lang.Math;
 
-public class Destino {
+public class Destino implements Serializable{
 
     private static ArrayList<Destino> listadoDestinos= new ArrayList<Destino>();
     private static boolean datosYaCargados=false; //Cuando se crea destino se asume que no hay destinos en el array listadoDestinos
@@ -151,23 +153,100 @@ public class Destino {
     public static ArrayList<Destino> generadorDeDatos(){ //Este metodo incluye los elementos prefabricados, si no los existen
         ArrayList<Destino> destinos = new ArrayList<Destino>();
 
-        destinos.add(new Destino("París","paris", "Francia", "Île-de-France",azar(0,5),
-        azar(0,2), 4, 
-        List.of(new Hotel("A",1,2,1,azar(4, 10),azar(30, 100)),
-         new Hotel("B",18,8,3,azar(4, 10),azar(30, 100)),
-          new Hotel("C",20,9,19,azar(4, 10),azar(30, 100)))));
+        destinos.add(new Destino("París","paris", "Francia", "Île-de-France",azar(0,5), azar(0,2), 4, 
+        List.of(new Hotel("Le Meurice",21,14,15,azar(7, 10),azar(80, 180)),
+                new Hotel("Hotel Plaza Athénée",18,8,3,azar(7, 10),azar(80, 180)),
+                new Hotel("The Peninsula Paris",20,9,19,azar(7, 10),azar(80, 180)))));
 
-        destinos.add(new Destino("Nueva York", "new york", "Estados Unidos", "Nueva York",
-        azar(0,5), azar(0,2),4, 
-        List.of(new Hotel("A",5,13,9,azar(4, 10),azar(30, 100)),
-        new Hotel("B",21,18,22,azar(4, 10),azar(30, 100)),
-         new Hotel("C",9,30,20,azar(4, 10),azar(30, 100)))));
+        destinos.add(new Destino("Nueva York", "new york", "Estados Unidos", "Nueva York", azar(0,5), azar(0,2),4, 
+        List.of(new Hotel("The Plaza Hotel",5,13,9,azar(7, 10),azar(100, 200)),
+                new Hotel("Mandarin Oriental New York",21,18,22,azar(7, 10),azar(100, 200)),
+                new Hotel("The St. Regis New York",9,30,20,azar(7, 10),azar(100, 200)))));
 
-        destinos.add(new Destino("Cartagena", "paris", "Colombia", "Caribe", //TODO: cambiar nombre alterno
-        azar(0,5), azar(0,2),4, 
-        List.of(new Hotel("A",6,5,24,azar(4, 10),azar(30, 100)),
-        new Hotel("B",16,22,10,azar(4, 10),azar(30, 100)),
-         new Hotel("C",24,25,6,azar(4, 10),azar(30, 100)))));
+        destinos.add(new Destino("Cartagena", "cartagena", "Colombia", "Caribe", azar(0,5), azar(0,2),3, 
+        List.of(new Hotel("Hotel Bocagrande",6,5,24,azar(7, 10),azar(30, 100)),
+                new Hotel("Gyatt Residency Cartagena",16,22,10,azar(7, 10),azar(30, 100)),
+                new Hotel("Hotel Cartagena Plaza",24,25,6,azar(7, 10),azar(30, 100)))));
+
+        destinos.add(new Destino("Lima", "lima", "Perú", "Lima", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Hotel Lima San Isidro", 25, 20, 15, azar(7, 10), azar(30, 100)),
+                new Hotel("Inkari Suites Hotel", 22, 16, 12, azar(7, 10), azar(30, 100)),
+                new Hotel("Radisson Hotel Decapolis Square Miraflores", 20, 15, 10, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Bogotá", "bogota", "Colombia", "Cundinamarca", azar(0, 5), azar(0, 2), 3, 
+        List.of(new Hotel("Great Tower Bogotá", 25, 15, 10, azar(7, 10), azar(30, 100)),
+                new Hotel("Hotel Mayasa Bogotá", 20, 12, 8, azar(7, 10), azar(30, 100)),
+                new Hotel("Urbana Inn", 28, 20, 10, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Buenos Aires", "buenos aires", "Argentina", "CABA", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("All Seasons Hotel Buenos Aires", 20, 15, 10, azar(7, 10), azar(30, 100)),
+                new Hotel("Buenos Aires Parrott", 22, 16, 12, azar(7, 10), azar(30, 100)),
+                new Hotel("Milton Buenos Aires", 18, 14, 10, azar(7, 10), azar(30, 100)))));
+    
+        destinos.add(new Destino("Cali", "cali", "Colombia", "Valle del Cauca", azar(0, 5), azar(0, 2), 3, 
+        List.of(new Hotel("Hotel Bisou Cali", 20, 15, 8, azar(7, 10), azar(30, 100)),
+                new Hotel("Hotel Belén", 25, 18, 12, azar(7, 10), azar(30, 100)),
+                new Hotel("Hotel Chipichape", 28, 20, 10, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Santa Marta", "santa marta", "Colombia", "Magdalena", azar(0, 5), azar(0, 2), 3, 
+        List.of(new Hotel("Hotel El Rodadero", 20, 14, 10, azar(7, 10), azar(30, 100)),
+                new Hotel("Hotel Tayrona", 24, 16, 12, azar(7, 10), azar(30, 100)),
+                new Hotel("Milton Garden Inn Santa Marta", 26, 18, 10, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Río de Janeiro", "rio de janeiro", "Brasil", "Río de Janeiro", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Hotel Copacabana", 25, 20, 15, azar(7, 10), azar(55, 135)),
+            new Hotel("Hotel Ipanema", 23, 18, 14, azar(7, 10), azar(60, 135)),
+            new Hotel("Hotel Leblon", 20, 15, 12, azar(7, 10), azar(55, 135)))));
+
+        destinos.add(new Destino("Leticia", "leticia", "Colombia", "Amazonas", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Hotel Divino Niño", 15, 10, 5, azar(7, 10), azar(30, 100)),
+                new Hotel("Waldo's Hotel Boutique", 18, 12, 6, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Santiago de Chile", "santiago", "Chile", "Metropolitana", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Hotel Leonardo Da Vinci", 22, 17, 12, azar(7, 10), azar(50, 120)),
+                new Hotel("DoubleTree by Milton Hotel Santiago", 24, 20, 14, azar(7, 10), azar(50, 120)),
+                new Hotel("The Singular Santiago", 18, 14, 10, azar(7, 10), azar(50, 120)))));
+
+        destinos.add(new Destino("Madrid", "madrid", "España", "Comunidad de Madrid", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Hotel Rizz Madrid", 30, 20, 15, azar(7, 10), azar(60, 160)),
+            new Hotel("\"Érase un hotel\"", 25, 18, 12, azar(7, 10), azar(55, 160)),
+                new Hotel("Hotel Claridge", 28, 22, 14, azar(7, 10), azar(55, 160)))));
+
+        destinos.add(new Destino("Barranquilla", "barranquilla", "Colombia", "Atlántico", azar(0, 5), azar(0, 2), 3, 
+        List.of(new Hotel("Hotel Sides Barranquilla", 20, 15, 10, azar(7, 10), azar(30, 100)),
+                new Hotel("GLS Hotel Grand Barranquilla", 22, 14, 12, azar(7, 10), azar(30, 100)),
+                new Hotel("Hotel Costa Mar", 25, 18, 10, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("San Andrés", "san andres", "Colombia", "San Andrés", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Decaroline Isleño", 18, 14, 10, azar(7, 10), azar(60, 120)),
+                new Hotel("Hotel Calypse Beach", 20, 15, 10, azar(7, 10), azar(60, 120)),
+                new Hotel("Hotel Casablanca", 22, 18, 12, azar(7, 10), azar(50, 120)))));
+
+        destinos.add(new Destino("Pereira", "pereira", "Colombia", "Risaralda", azar(0, 5), azar(0, 2), 2, 
+        List.of(new Hotel("Hotel Otún", 15, 10, 6, azar(7, 10), azar(30, 100)),
+                new Hotel("Hotel Movich Pereira", 18, 12, 8, azar(7, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Londres", "londres", "Reino Unido", "Inglaterra", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Sea Containers London", 30, 20, 15, azar(7, 10), azar(86, 187)),
+                new Hotel("Marlin Waterloo", 25, 18, 12, azar(7, 10), azar(96, 190)),
+                new Hotel("The Grange Pub", 28, 22, 14, azar(7, 10), azar(100, 185)))));
+
+        destinos.add(new Destino("Tokio", "tokyo", "Japón", "Kanto", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Lucky Hotel", 30, 25, 20, azar(7, 10), azar(96, 178)),
+                new Hotel("Grand Super Bodhisattva Hotel Square Plaza", 28, 22, 18, azar(7, 10), azar(103, 201)),
+                new Hotel("The Shinjuku Resort", 26, 20, 15, azar(7, 10), azar(90, 185)))));
+
+        destinos.add(new Destino("Sídney", "sidney", "Australia", "Nueva Gales del Sur", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Park Gyatt Sydney", 28, 22, 16, azar(4, 10), azar(30, 100)),
+                new Hotel("Rockdale Grand Hotel", 30, 25, 18, azar(4, 10), azar(30, 100)),
+                new Hotel("Merlin Suites Sydney", 25, 20, 15, azar(4, 10), azar(30, 100)))));
+
+        destinos.add(new Destino("Dubái", "dubai", "Emiratos Árabes Unidos", "Dubái", azar(0, 5), azar(0, 2), 4, 
+        List.of(new Hotel("Al Habtoor Palace", 25, 20, 18, azar(9, 10), azar(348, 462)),
+                new Hotel("Palace Downtown", 30, 25, 20, 10, azar(360, 450)),
+                new Hotel("Mazaya Centre LEVA Hotel", 28, 22, 16, azar(8, 10), azar(300, 486)))));
+
+        
 
         //TODO: Agregar más destinos
 

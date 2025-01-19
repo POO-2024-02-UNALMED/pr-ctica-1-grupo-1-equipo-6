@@ -2,17 +2,20 @@
 
 package gestorAplicacion.reservacionHotel;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import uiMain.uiReservaHotel;
 
-public class Reserva{
+public class Reserva implements Serializable{
 
     //Variables
 
     private static int idDestino;
+
+    private static Reserva reservaActual;
 
     private Destino destinoViaje;
     private Hotel hotelViaje;
@@ -35,6 +38,13 @@ public class Reserva{
     }
     public static void setIdDestino(int idDestino) {
         Reserva.idDestino = idDestino;
+    }
+
+    public static Reserva getReservaActual() {
+        return reservaActual;
+    }
+    public static void setReservaActual(Reserva reservaActual) {
+        Reserva.reservaActual = reservaActual;
     }
 
     public Destino getDestinoViaje() {
@@ -185,6 +195,7 @@ public class Reserva{
 
     public void confirmarHotel(){
         this.hotelViaje.cuartoReservado(this.estadia, this.lujoHotelViaje, (this.viajerosAdultos+this.viejerosMenores), this.destinoViaje);
+        reservaActual=this;
 
     }
 
