@@ -73,6 +73,11 @@ public class Hotel implements Serializable{
 
     }
 
+    private static float calcularDemanda(int simples, int medios, int altos, float prestigio, int estadia){
+        return (float) ((float) calcularDemanda(simples, medios, altos, prestigio)+((Math.pow(estadia, 2))/((Math.pow(9, 3.2f))+78)));
+
+    }
+
     public float calcularPrecioEsperadoNoche(float famaDestino, int temporadaDestino, int adultosReserva, int menoresReserva, float prestigioThis, float demandaThis){
 
         float viajeros=(float) (1+((adultosReserva+(1.2*menoresReserva))/(adultosReserva+menoresReserva+5)));//Esta fórmula permite obtener un factor, dependiendo del número de viajeros adultos y niños
@@ -153,7 +158,7 @@ public class Hotel implements Serializable{
         else{}
 
         float demandaPrevia=this.demanda;
-        this.demanda=calcularDemanda(this.cuartosSimples, this.cuartosIntermedios, this.cuartosLujosos, this.prestigio);
+        this.demanda=calcularDemanda(this.cuartosSimples, this.cuartosIntermedios, this.cuartosLujosos, this.prestigio, noches);
 
         destino.reservaHecha(this, lujo, deltaDemanda(demandaPrevia));
 
