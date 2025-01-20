@@ -1,8 +1,51 @@
-public class RutaTuristica {
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ruta {
     int precio = 0;
+    private int presupuesto;
+    private int duracion;
+    private int tipo;
+    private String lugar;
+
+    public int getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(int presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+
+
     ArrayList<Lugar> lugaresDisponibles = new ArrayList<>();
 
-    RutaTuristica() {
+    void RutaTuristica() {
         lugaresDisponibles.add(new Lugar("Museo del Oro", "Un museo con piezas precolombinas.", 50000));
         lugaresDisponibles.add(new Lugar("Monserrate", "Un mirador icónico de Bogotá.", 80000));
         lugaresDisponibles.add(new Lugar("Cristo Rey", "Una estatua monumental en Cali.", 30000));
@@ -17,8 +60,8 @@ public class RutaTuristica {
             System.out.println("Lugares disponibles:");
             for (int i = 0; i < lugaresDisponibles.size(); i++) {
                 Lugar lugar = lugaresDisponibles.get(i);
-                if (lugar.precio <= puntaje) {
-                    System.out.println((i + 1) + ". " + lugar.nombre + " - Precio: " + lugar.precio);
+                if (lugar.getPrecio() <= puntaje) {
+                    System.out.println((i + 1) + ". " + lugar.getNombre() + " - Precio: " + lugar.getPrecio());
                 }
             }
             System.out.println("Seleccione un lugar por su número o escriba '0' para terminar:");
@@ -32,7 +75,7 @@ public class RutaTuristica {
                 System.out.println("¿Desea agregar este lugar a la ruta turística? (si/no):");
                 String respuesta = scanner.next();
                 if (respuesta.equalsIgnoreCase("si")) {
-                    precio += lugarSeleccionado.precio;
+                    precio += lugarSeleccionado.getPrecio();
                 }
             } else {
                 System.out.println("Opción no válida. Intente nuevamente.");

@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class LugTuristico {
     int preferencias;
     int lugares;

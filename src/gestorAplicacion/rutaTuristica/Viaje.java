@@ -1,3 +1,6 @@
+
+import java.util.Scanner;
+
 public class Viaje {
     int numTotal;
     int documento;
