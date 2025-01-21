@@ -115,26 +115,28 @@ public class Destino implements Serializable{
 
         for(Destino destino: getDestinos()){ //Se pasa cada destino
             if (destino.getNombre().equalsIgnoreCase(nombrePosibleDestino)){
-                aRetornar.add(destino); //Si su nombre coincide con el que buscó el usuario, se añade al array temporal
+                aRetornar.add(destino); //Si su nombre coincide con el que buscó el usuario, se añade al array de resultados
             }
 
             else if (destino.getNombreAlterno().equalsIgnoreCase(nombrePosibleDestino)){
-                aRetornar.add(destino); //Si su nombre aleterno coincide con el que buscó el usuario, se añade al array temporal
+                aRetornar.add(destino); //Si su nombre aleterno coincide con el que buscó el usuario, se añade al array de resultados
             }
 
             else if (destino.getPais().equalsIgnoreCase(nombrePosibleDestino)){
-                aRetornar.add(destino); //Si su país coincide con lo que buscó el usuario, se añade al array temporal
+                aRetornar.add(destino); //Si su país coincide con lo que buscó el usuario, se añade al array de resultados
             }
 
             else if (destino.getRegion().equalsIgnoreCase(nombrePosibleDestino)){
-                aRetornar.add(destino); //Si la región coincide con lo que buscó el usuario, se añade al array temporal
+                aRetornar.add(destino); //Si la región coincide con lo que buscó el usuario, se añade al arrays de resultados
             }
 
         }
 
-        return aRetornar; //Se regresa el array temporal
+        return aRetornar; //Se regresa el array de resultados
     }
 
+    //Reservahecha calcula la fama y temporada del destino cuando se reserva un cuarto de hotel
+    //Las reservas en cuartos u hoteles lujosos pueden subir la fama o la temporada
     public void reservaHecha(Hotel hotelReservado, byte lujoReserva, float deltaDemanda){
 
         float hotelPrestigio= hotelReservado.getPrestigio();
@@ -144,8 +146,8 @@ public class Destino implements Serializable{
             fama = Math.min(this.fama, 5.0f);  //Si la fama se pasa de 5 se rompe la economía
         }
         
-        if((lujoReserva==3||deltaDemanda>0.45)&&this.temporada<2){
-            this.temporada++;
+        if((lujoReserva>=2||deltaDemanda>0.45)&&this.temporada<2){//SI el cuarto de hotel es intemedio o lujoso y la delta demanda es grandecita se puede subir la temporada
+            this.temporada++;//Pero si la temproada ya es 3, no se sube más para que no nos castigue Fontur
         }
 
     }
@@ -248,11 +250,12 @@ public class Destino implements Serializable{
 
         
 
-        //TODO: Agregar más destinos
+        
 
         return destinos;
     }
 
+    //El azar es solo para ponerle valores aleatorios a los destinos cuando se crean por 1ra vez
     private static int azar(int min, int max){ //Este metodo genera números al azar, de un mínimo a un máximo, solo se usa para generar objetos por primera vez
         return (int) (min+(Math.random()*(max-min)));
     }

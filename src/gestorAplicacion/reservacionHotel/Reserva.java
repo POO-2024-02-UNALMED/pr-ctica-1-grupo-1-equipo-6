@@ -135,7 +135,7 @@ public class Reserva implements Serializable{
 
     }
 
-    //Colocar fechas
+    //Colocar fechas, asegurando que no den error
     public void setAmbasFechas(boolean modificar, LocalDate fechaLlegada, LocalDate fechaSalida){
 
         if(fechaLlegada.isEqual(LocalDate.now())||fechaLlegada.isBefore(LocalDate.now())|| //Si la fecha de llegada es menor o igual a hoy,
@@ -160,7 +160,7 @@ public class Reserva implements Serializable{
 
     }
 
-    //Numero de viajeros
+    //Numero de viajeros, se verifica la validez de la info
     public void setAdultosMenores(boolean modificar, int mayores, int menores){
 
         if(mayores>0&&menores>=0&&(mayores*2)>=menores){ //Este código revisa que haya al menos un adulto viajando, y que no hayan más de 2 niños por adulto responsable
@@ -187,12 +187,14 @@ public class Reserva implements Serializable{
 
     }
 
+    //El calculo se hace por parte del hotel, el precio total se guarda en la reserva
     public float calculoEstadiaTotal(){
         
         this.precioTotal= this.hotelViaje.calcularPrecioTotal(this.lujoHotelViaje,this.estadia);
         return this.precioTotal;
     }
 
+    //Este método sirve para definir la reserva actual, la cual puede ser de utilidad en otros lugares, y para indicarle al hotel que debe descontar un cuarto
     public void confirmarHotel(){
         this.hotelViaje.cuartoReservado(this.estadia, this.lujoHotelViaje, (this.viajerosAdultos+this.viejerosMenores), this.destinoViaje);
         reservaActual=this;

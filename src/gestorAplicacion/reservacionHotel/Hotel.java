@@ -57,6 +57,8 @@ public class Hotel implements Serializable{
     public void setRecargo(float recargo) {this.recargo = recargo;}
     //TERMINAN GETTERS Y SETTERS
 
+    //Calcular demanda ajusta la demanda con base al numero de cuartos por lujo y el prestigio del hotel. La demanda se usa para calcular el precio por noche
+    //la demanda sube cuando hay menos cuartos, y cuando el hotel tiende a ser más bien prestigioso
     private static float calcularDemanda(int simples, int medios, int altos, float prestigio){
         
         //Si alguno de estos valores es menor a 1 se predetermina a 1. Si es mayor a 30 se predetermina a 30
@@ -73,11 +75,15 @@ public class Hotel implements Serializable{
 
     }
 
+    //Este método de calcular demanda, además de considerar lo que tiene el método anterior, tambien tiene en cuenta la duración de la estadía
+    //este método llama al otro para tener la demanda base, y este le suma un valor extra calculado.
+    //Una estadía larga va a subir un poquito más la demanda del hotel
     private static float calcularDemanda(int simples, int medios, int altos, float prestigio, int estadia){
         return (float) ((float) calcularDemanda(simples, medios, altos, prestigio)+((Math.pow(estadia, 2))/((Math.pow(9, 3.2f))+78)));
 
     }
 
+    //Este método retorna un cálculo grosso del precio por noche del hotel, ese valor incrementa o lo contrario dependiendo del cuarto elegido
     public float calcularPrecioEsperadoNoche(float famaDestino, int temporadaDestino, int adultosReserva, int menoresReserva, float prestigioThis, float demandaThis){
 
         float viajeros=(float) (1+((adultosReserva+(1.2*menoresReserva))/(adultosReserva+menoresReserva+5)));//Esta fórmula permite obtener un factor, dependiendo del número de viajeros adultos y niños
@@ -105,6 +111,7 @@ public class Hotel implements Serializable{
 
     }
 
+    //Este método toma el precio esperado del hotel, y lo multiplica por la estadía y el valor asociado al lujo del cuarto
     public float calcularPrecioTotal(byte lujo, int estadia){
 
         float total=0f;
@@ -126,6 +133,11 @@ public class Hotel implements Serializable{
 
     }
 
+    //Listar precios retorna un array con los precios
+    //Posición 0: Cuarto simple
+    //Posición 1: cuarto intermedio
+    //Posición 2: cuarto lujoso
+    //Si algún tipo de cuarto no se encuentra disponible, su posición respectiva va a ser null, y no se va ni a mostrar, ni a permitir reservarlo
     public ArrayList<Float> listarPrecios(){
 
         ArrayList<Float> precios= new ArrayList<Float>();
@@ -144,6 +156,8 @@ public class Hotel implements Serializable{
         
     }
 
+    //cuarto reservado descuenta el cuarto respectivo, y vuelve a calcular la demanda del hotel con esa información
+    //La diferencia entre la demanda antigua y la actual se calcula con el método deltaDemanda, ese valor se le envía al destino
     public void cuartoReservado(int noches, byte lujo, int personas, Destino destino){
 
         if(lujo==0&&this.cuartosSimples>0){
@@ -158,12 +172,14 @@ public class Hotel implements Serializable{
         else{}
 
         float demandaPrevia=this.demanda;
+        //Se redefine la demanda del hotel con el método sobrecargado
         this.demanda=calcularDemanda(this.cuartosSimples, this.cuartosIntermedios, this.cuartosLujosos, this.prestigio, noches);
 
         destino.reservaHecha(this, lujo, deltaDemanda(demandaPrevia));
 
     }
 
+    //delta demanda resta de la demanda actual la demanda antigua, obtiene la diferencia (delta).
     private float deltaDemanda(float demandaPrevia){
         return this.demanda-demandaPrevia;
     }
