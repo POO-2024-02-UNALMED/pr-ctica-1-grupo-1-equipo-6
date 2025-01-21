@@ -264,6 +264,7 @@ public class uiReservaHotel extends uiMain{
     
         }
 
+        //Este método en reserva define el número de viajeros
         reservaUsuario.setAdultosMenores(modificar, adultos, menores);
 
     }
@@ -384,61 +385,63 @@ public class uiReservaHotel extends uiMain{
     
         }
 
-        revision(reservaUsuario);
+        revision(modificar, reservaUsuario);
 
     }
 
-    public static void revision(Reserva reservaUsuario){ //Este método le muestra al usuario un resumen de toda la reserva
+    public static void revision(boolean modificar, Reserva reservaUsuario){ //Este método le muestra al usuario un resumen de toda la reserva
 
-        //Impreso, un resumen de todo
-        System.out.println('\n'+"Este es el resumen de tu reserva:");
-        System.out.println("    Destino: "+reservaUsuario.getDestinoViaje().getNombre()+", "+reservaUsuario.getDestinoViaje().getPais()+".");
-        System.out.println("    Fecha de llegada: "+reservaUsuario.getFechaLlegar().toString()+".");
-        System.out.println("    Fecha de salida: "+reservaUsuario.getFechaSalir().toString()+".");
-        System.out.println("    Estadía: "+reservaUsuario.getEstadia()+" noches.");
-        System.out.println("    Viajeros adultos: "+reservaUsuario.getViajerosAdultos()+".");
-        System.out.println("    Viajeros menores de edad: "+reservaUsuario.getViejerosMenores()+".");
-        System.out.println("    Hotel: "+reservaUsuario.getHotelViaje().getNombre()+".");
-        System.out.print("  Tipo de habitación: ");
+        if(!modificar){//Solo se muestra cuando no se va a modificar, para no mostrarlo 2 veces
+            //Impreso, un resumen de todo
+            System.out.println('\n'+"Este es el resumen de tu reserva:");
+            System.out.println("    Destino: "+reservaUsuario.getDestinoViaje().getNombre()+", "+reservaUsuario.getDestinoViaje().getPais()+".");
+            System.out.println("    Fecha de llegada: "+reservaUsuario.getFechaLlegar().toString()+".");
+            System.out.println("    Fecha de salida: "+reservaUsuario.getFechaSalir().toString()+".");
+            System.out.println("    Estadía: "+reservaUsuario.getEstadia()+" noches.");
+            System.out.println("    Viajeros adultos: "+reservaUsuario.getViajerosAdultos()+".");
+            System.out.println("    Viajeros menores de edad: "+reservaUsuario.getViejerosMenores()+".");
+            System.out.println("    Hotel: "+reservaUsuario.getHotelViaje().getNombre()+".");
+            System.out.print("  Tipo de habitación: ");
 
-        switch (reservaUsuario.getLujoHotelViaje()) {
-            case 0:
-                System.out.println("Cuarto simple.");
-                break;
+            switch (reservaUsuario.getLujoHotelViaje()) {
+                case 0:
+                    System.out.println("Cuarto simple.");
+                    break;
         
-            case 1:
-                System.out.println("Habitación ejecutiva.");
-                break;
+                case 1:
+                    System.out.println("Habitación ejecutiva.");
+                    break;
 
-            case 2:
-                System.out.println("Suite Premium.");
-                break;
-        }
-
-        System.out.println('\n'+"   El total a pagar es: $"+(String.format("%,.2f", reservaUsuario.getPrecioTotal()))+'\n');
-
-        System.out.println("¿Estás conforme con tu reserva? ¿Deseas cambiar algo?"+'\n'+"Presiona 1 para confirmar tu reserva."+'\n'+"Presiona 2 para modificarla."+'\n'+"Presiona 0 para cancelar la reserva.");
-
-        while(true){//Switch para las opctiones
-            String eleccion =scannerPrompt.nextLine();
-
-            if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){
-                confirmacion(reservaUsuario);//Método para confirmar
-                break;
+                case 2:
+                    System.out.println("Suite Premium.");
+                    break;
             }
-            else if(eleccion.equals("2")||eleccion.equalsIgnoreCase("dos")){
-                modificar(reservaUsuario); //Método para cambiar algo
-                break;
-            }
-            else if(eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
-                reservaUsuario=null;
-                break;
-            }
-            else{
-                System.out.println("Por favor introduce una opción válida.");
-                continue;
-            }
+
+            System.out.println('\n'+"   El total a pagar es: $"+(String.format("%,.2f", reservaUsuario.getPrecioTotal()))+'\n');
+
+            System.out.println("¿Estás conforme con tu reserva? ¿Deseas cambiar algo?"+'\n'+"Presiona 1 para confirmar tu reserva."+'\n'+"Presiona 2 para modificarla."+'\n'+"Presiona 0 para cancelar la reserva.");
+
+            while(true){//Switch para las opctiones
+                String eleccion =scannerPrompt.nextLine();
+
+                if(eleccion.equals("1")||eleccion.equalsIgnoreCase("uno")){
+                    confirmacion(reservaUsuario);//Método para confirmar
+                    break;
+                }
+                else if(eleccion.equals("2")||eleccion.equalsIgnoreCase("dos")){
+                    modificar(reservaUsuario); //Método para cambiar algo
+                    break;
+                }
+                else if(eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
+                    reservaUsuario=null;
+                    break;
+                }
+                else{
+                    System.out.println("Por favor introduce una opción válida.");
+                    continue;
+                }
         
+            }
         }
 
     }
@@ -490,7 +493,7 @@ public class uiReservaHotel extends uiMain{
             System.out.println("Por favor introduce un valor válido.");
         }
 
-        revision(reservaUsuario);
+        revision(false, reservaUsuario);
 
     }
 
