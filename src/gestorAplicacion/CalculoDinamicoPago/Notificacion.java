@@ -5,7 +5,6 @@ public class Notificacion {
     
     /**
      * Envía una notificación con el mensaje especificado.
-     * 
      * @param mensaje El mensaje a enviar (no puede ser null)
      * @throws IllegalArgumentException si el mensaje es null
      */
