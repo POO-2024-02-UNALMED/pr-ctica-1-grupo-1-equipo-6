@@ -143,7 +143,7 @@ public class Destino implements Serializable{
         
         if (deltaDemanda > 0.35 && hotelPrestigio > 8.65f) {  //Si la demanda sube lo sufuciente en un hotel prestigioso, sube la fama del destino
             this.fama += deltaDemanda * hotelPrestigio / 20; 
-            fama = Math.min(this.fama, 5.0f);  //Si la fama se pasa de 5 se rompe la economía
+            this.fama = Math.min(this.fama, 5.0f);  //Si la fama se pasa de 5 se rompe la economía
         }
         
         if((lujoReserva>=2||deltaDemanda>0.45)&&this.temporada<2){//SI el cuarto de hotel es intemedio o lujoso y la delta demanda es grandecita se puede subir la temporada
