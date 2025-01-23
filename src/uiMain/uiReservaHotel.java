@@ -1,5 +1,7 @@
 //Codificado por Alejandro Pérez Barrera
 
+//Esta clase es la interfaz de usuario para reservar hoteles, incluye todo lo necesario en terminos de interacciones y mensajes de print
+
 package uiMain;
 
 import java.util.ArrayList;
