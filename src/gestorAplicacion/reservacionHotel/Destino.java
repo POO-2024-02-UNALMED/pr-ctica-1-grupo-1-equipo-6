@@ -1,5 +1,7 @@
 //Codificado por Alejandro Pérez Barrera
 
+//la clase destino contiene informacion acerca de un lugar a donde viaja el usuario, tiene su debida fama y temporada, junto con un metodo para buscar destinos
+
 package gestorAplicacion.reservacionHotel;
 
 import java.util.*;
@@ -110,15 +112,15 @@ public class Destino implements Serializable{
     //TERMINAN SETTERS Y GETTERS
 
     //Buscar un destino con la información del usuario
-    public static ArrayList<Destino> buscarDestino(String nombrePosibleDestino){
+    public static ArrayList<Destino> buscarDestino(String nombrePosibleDestino){//Este método busca dentro del listado de destinos, aquellos que el alguna parte, sea en su nombre, nombre alterno, pais o region; la palabra clave, o keyword, una vez es encontrado uno de estos destinos, se añade al array de resultados, cuando no queden más destinos por los que buscar, se termina este proceso, no sin antes haber añadido todos los destinos que hayan presentado una coincidencia
         ArrayList<Destino> aRetornar= new ArrayList<Destino>(); //Este array guarda las coincidencias
 
-        for(Destino destino: getDestinos()){ //Se pasa cada destino
-            if (destino.getNombre().equalsIgnoreCase(nombrePosibleDestino)){
+        for(Destino destino: getDestinos()){ //Este bucle for each itera por cada destino en el metodo getdestinos, un método estático que retorna los destinos cuando estos están en la memoria, o los carga si no lo estan, o los manda a crear, si ninguna de las anteriores, para por ultimo, devolverlos.
+            if (destino.getNombre().equalsIgnoreCase(nombrePosibleDestino)){//Aqui se buscan casos de coincidencia, donde el nombre del destino coincide con la palabra que haya buscado el usuario, independiente de las mayusculas y minusculas
                 aRetornar.add(destino); //Si su nombre coincide con el que buscó el usuario, se añade al array de resultados
             }
 
-            else if (destino.getNombreAlterno().equalsIgnoreCase(nombrePosibleDestino)){
+            else if (destino.getNombreAlterno().equalsIgnoreCase(nombrePosibleDestino)){//Aqui se buscan los casos de coincidencia, donde el nombre alterno del desrtino coincida con la palabra que haya buscado el usuario, independiente de si haya mayusculas o minusculas
                 aRetornar.add(destino); //Si su nombre aleterno coincide con el que buscó el usuario, se añade al array de resultados
             }
 
@@ -151,10 +153,10 @@ public class Destino implements Serializable{
         }
 
     }
-
+//Este método se ejecuta si el método que carga los destinos serializados no puede encontrar el archivo con los destinos (1ra vez que se ejecuta el programa), o si ese método no encuentra datos válidos
     public static ArrayList<Destino> generadorDeDatos(){ //Este metodo incluye los elementos prefabricados, si no los existen
         ArrayList<Destino> destinos = new ArrayList<Destino>();
-
+        //de aqui para abajo son puros destinos predeterminados, lo unico que varia es el azar que se le añade al prestigio del hotel y el recargo que tiene este
         destinos.add(new Destino("París","paris", "Francia", "Île-de-France",azar(0,5), azar(0,2), 4, 
         List.of(new Hotel("Le Meurice",21,14,15,azar(7, 10),azar(80, 180)),
                 new Hotel("Hotel Plaza Athénée",18,8,3,azar(7, 10),azar(80, 180)),

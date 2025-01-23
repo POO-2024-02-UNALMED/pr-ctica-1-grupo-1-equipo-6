@@ -1,5 +1,6 @@
 //Codificado por Alejandro Pérez Barrera
 
+//La clase hotel hace referencia al sitio donde un viajero va a pasar la noche, contiene inFORMACION DEL HOTEL COMO CUANTOS CUARTOS LE QUEDAN DISPONIBLES, Y DATOS PARA DEFINIR EL PRECIO
 package gestorAplicacion.reservacionHotel;
 
 import java.io.Serializable;
@@ -59,6 +60,7 @@ public class Hotel implements Serializable{
 
     //Calcular demanda ajusta la demanda con base al numero de cuartos por lujo y el prestigio del hotel. La demanda se usa para calcular el precio por noche
     //la demanda sube cuando hay menos cuartos, y cuando el hotel tiende a ser más bien prestigioso
+    //calculardemanda recibe el numero de cuartos en cada tipo de habitacion y el prestigio del hotel y retorna un float con la demanda del hotel, si la demanda del hotel se menor a 0 o mayor a 10, se limita  0 o a   10
     private static float calcularDemanda(int simples, int medios, int altos, float prestigio){
         
         //Si alguno de estos valores es menor a 1 se predetermina a 1. Si es mayor a 30 se predetermina a 30
