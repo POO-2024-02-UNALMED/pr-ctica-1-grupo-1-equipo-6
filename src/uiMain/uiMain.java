@@ -65,7 +65,7 @@ public class uiMain {
 
                     case 3:
                         System.out.println("Has seleccionado agendar planes complementarios."+'\n');
-                        reservarPlanes();//TODO: Al correspondiente, comenzar a ejecutar su funcionalidad desde aquí.
+                        uiTalleres.empezar();//TODO: Al correspondiente, comenzar a ejecutar su funcionalidad desde aquí.
                         break;
 
                     case 4:
