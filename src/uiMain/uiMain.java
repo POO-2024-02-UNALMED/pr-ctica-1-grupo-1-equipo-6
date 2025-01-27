@@ -21,7 +21,7 @@ public class uiMain {
             //Menú de opciones
             System.out.println("Por favor selecciona que deseas hacer:"+'\n'+
             " 1. Reservar una habitación de hotel."+'\n'+
-            " 2. Reservar un viaje."+'\n'+
+            " 2. Reservar una Ruta de actividades y talleres."+'\n'+
             " 3. Agendar planes complementarios."+'\n'+
             " 4. Realizar pagos."+'\n'+
             " 5. Cancelaciones."+'\n'+
@@ -59,8 +59,8 @@ public class uiMain {
                         break;
 
                     case 2:
-                        System.out.println("Has seleccionado reservar un viaje."+'\n');
-                        reservarViaje();//TODO: Al correspondiente, comenzar a ejecutar su funcionalidad desde aquí.
+                        System.out.println("Has seleccionado reservar un Itinerario de actividades."+'\n');
+                        uiTalleres.empezar();//TODO: Al correspondiente, comenzar a ejecutar su funcionalidad desde aquí.
                         break;
 
                     case 3:
