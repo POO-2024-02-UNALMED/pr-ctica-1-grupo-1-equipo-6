@@ -43,7 +43,13 @@ public class uiTalleres {
                 while (true){
                         Scanner entrada = new Scanner(System.in);
                         System.out.println("Digite número de documento con 9 digitos o menos");
-                        doc = entrada.nextInt();
+                        try{
+                                doc = Integer.parseInt(entrada.nextLine());
+                        }
+                        catch(NumberFormatException e){
+                                System.out.println("Por favor introduzca un número válido");
+                                continue;
+                        }
                         if (doc > 0 && doc < 999999999){
                                 break;
                         }else{
@@ -211,6 +217,7 @@ public class uiTalleres {
                         System.out.println("Ruta cancelada exitosamente");
                 }
 
+                
 
         }
 }
