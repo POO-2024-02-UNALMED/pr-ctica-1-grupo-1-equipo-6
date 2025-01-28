@@ -158,8 +158,13 @@ public class uiReservaHotel extends uiMain{
 
             //Si se está modificando una reserva, solo se le cambia el hotel, de lo contrario, se crea una nueva y se pasa a fechas
             if(!modificar){
-                Reserva reservaUsuario = new Reserva(resultados.get(Reserva.getIdDestino()));
-                fechas(modificar, reservaUsuario, true); //Se pasa a las fechas, se pone true porque no hay inconvenientes
+                try{
+                    Reserva reservaUsuario = new Reserva(resultados.get(Reserva.getIdDestino()));
+                    fechas(modificar, reservaUsuario, true); //Se pasa a las fechas, se pone true porque no hay inconvenientes
+                }
+                catch(IndexOutOfBoundsException e){
+                    System.out.println("Ha sucedido un error al cancelar ("+e+") pero no te preocupes, todo está bien.");
+                }
             }
             else{
                 reservaModificada.setDestinoViaje(resultados.get(Reserva.getIdDestino()));
@@ -435,7 +440,7 @@ public class uiReservaHotel extends uiMain{
                     break;
                 }
                 else if(eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
-                    //reservaUsuario=null; A ver si esto cambia algo
+                    //reservaUsuario=null; 
                     break;
                 }
                 else{
