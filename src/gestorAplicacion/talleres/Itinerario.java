@@ -2,7 +2,8 @@ package gestorAplicacion.talleres;
 
 import java.util.ArrayList;
 import java.util.List;
-public class Itinerario {
+import java.io.Serializable;
+public class Itinerario implements Serializable{
     private List<Integer> actividades;
     private List<Integer> Documentos;
     private List<Integer> precios;

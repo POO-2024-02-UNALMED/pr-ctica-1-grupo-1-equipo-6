@@ -11,6 +11,7 @@ import java.util.List;
 import gestorAplicacion.talleres.Lugar;
 import gestorAplicacion.talleres.Gestion;
 import gestorAplicacion.talleres.Itinerario;
+import baseDatos.registro;
 
 
 public class uiTalleres extends uiMain{//La pongo a heredar de uiMain para usar el scanner
@@ -356,7 +357,7 @@ public class uiTalleres extends uiMain{//La pongo a heredar de uiMain para usar 
                         }else{
                                 Registro.setGrupo2(Registro.getGrupo2()+1);
                         }
-                        //TODO: Línea justo abajo, reconsiderar el tono de ese mensaje, sobre todo la carita feliz, no me parece pertinente
+                        registro.guardarRegistro(Registro, "registro.txt");
                         System.out.println("Ruta agregada exitosamente, disfruta de tu agendamiento y no olvides llevar abrigo siempre :)"+'\n');
                 }else{
                         System.out.println("Ruta cancelada exitosamente"+'\n');
