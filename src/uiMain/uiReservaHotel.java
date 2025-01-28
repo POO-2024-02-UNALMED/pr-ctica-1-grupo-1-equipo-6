@@ -435,7 +435,7 @@ public class uiReservaHotel extends uiMain{
                     break;
                 }
                 else if(eleccion.equals("0")||eleccion.equalsIgnoreCase("cero")){
-                    reservaUsuario=null;
+                    //reservaUsuario=null; A ver si esto cambia algo
                     break;
                 }
                 else{
