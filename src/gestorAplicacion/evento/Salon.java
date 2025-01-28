@@ -4,16 +4,17 @@ public class Salon {
     private int capacidadMaxima;
     private boolean disponible;
     private boolean reservado;
-    private String serviciosConfirmados;
+    private String serviciosConfirmados; // Servicios confirmados para el evento
 
     public Salon(int capacidadMaxima) {
         this.capacidadMaxima = capacidadMaxima;
-        this.disponible = true;  
-        this.reservado = false;  /
+        this.disponible = true;  // Suponemos que el salón está disponible inicialmente
+        this.reservado = false;  // No está reservado
         this.serviciosConfirmados = "";
     }
 
     public boolean verificarDisponibilidad(String fecha, String hora) {
+        // Lógica para verificar la disponibilidad en una base de datos o sistema
         return disponible;
     }
 

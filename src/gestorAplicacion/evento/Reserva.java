@@ -29,7 +29,8 @@ public class Reserva {
 
     public void setNumPersonas(int numPersonas) {
         this.numPersonas = numPersonas;
-        this.costoTotal = calcularCostoTotal(); 
+        this.costoTotal = calcularCostoTotal(); // Recalcular el costo cuando cambia el número de personas
+    }
 
     public double getCostoTotal() {
         return costoTotal;
