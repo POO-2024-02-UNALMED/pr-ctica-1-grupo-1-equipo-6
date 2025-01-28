@@ -358,7 +358,7 @@ public class uiTalleres extends uiMain{//La pongo a heredar de uiMain para usar 
                                 Registro.setGrupo2(Registro.getGrupo2()+1);
                         }
                         registro.guardarRegistro(Registro, "registro.txt");
-                        System.out.println("Ruta agregada exitosamente, disfruta de tu agendamiento y no olvides llevar abrigo siempre :)"+'\n');
+                        System.out.println("Disfruta de tu agendamiento y no olvides llevar abrigo siempre :)"+'\n');
                 }else{
                         System.out.println("Ruta cancelada exitosamente"+'\n');
                 }
