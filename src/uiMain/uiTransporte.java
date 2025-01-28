@@ -21,7 +21,7 @@ public class uiTransporte extends uiMain{
     private static int personas;
     
     public static void go(){
-        System.out.println("Precaución: La implementación de esta funcionalidad puede contener errores"+'\n'+"Última revisión: AlPerBara, 2025-01-28-08-25"+'\n');
+        System.out.println("Precaución: La implementación de esta funcionalidad puede contener errores"+'\n'+"Última revisión: AlPerBara, 2025-01-28-12-36"+'\n');
 
         System.out.println("Por favor introduce el nombre de tu destino, de nuestro listado de destinos disponibles:");
 
