@@ -333,7 +333,7 @@ public class uiTalleres extends uiMain{//La pongo a heredar de uiMain para usar 
                 estimacion = estimacion - (estimacion*(Manejo.getDescuento())/100);
                 estimacion += (Manejo.getPresupuesto())/2;
                 x = (int) estimacion;
-                Manejo.setPresupuesto(x);
+                Manejo.setPresupuesto(x/2);
 
                 System.out.println("El valor de la ruta de actividades y talleres es de: "+ Manejo.getPresupuesto());
                 //¿¿¿¿¿????? Aquí había OTRO SCANNER ¡¡RAHHH!!🦅🦅
