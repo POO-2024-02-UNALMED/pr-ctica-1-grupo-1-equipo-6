@@ -1,11 +1,19 @@
 package gestorAplicacion.transporte;
 
+import gestorAplicacion.reservacionHotel.Destino;
+
 public class Avion extends Transporte{
 
     private static final float PRECIO_POR_KM=1463.19f;
 
+    public Avion(Destino destino, int personas){
+        super(destino, personas);
+    }
+
     @Override
-    float calculoPrecioTransporte(float distancia, float famaDestino, int temporadaDestino, int personas, int clase) {
+    public float calculoPrecioTransporte(float famaDestino, int temporadaDestino, int personas, int clase) {
+
+        float distancia=this.distanciaKM(this.destino.getPais(), this.destino.getRegion());
         float t;
         
         switch(temporadaDestino){
@@ -21,13 +29,30 @@ public class Avion extends Transporte{
             default:
                 t=1.2f;
         }
+        float c;
+        switch(clase){
+            case 0:
+                c=1;
+                break;
+            case 1:
+                c=1.5f;
+                break;
+            case 3:
+                c=2;
+                break;
+            default:
+                c=1.5f;
+        }
 
-        float total= (float) ((PRECIO_POR_KM/1000)*(((Math.pow(Math.log(distancia) / Math.log(5),2))*distancia)/((Math.sqrt(distancia))-(Math.log(distancia) / Math.log(5))))*(famaDestino/3)*t*clase*personas);
+        float total= (float) ((PRECIO_POR_KM/1000)*(((Math.pow(Math.log(distancia) / Math.log(5),2))*distancia)/((Math.sqrt(distancia))-(Math.log(distancia) / Math.log(5))))*(famaDestino/3)*t*c*personas);
         
-        return total;
+        return total*100;
     }
 
-    float calculoPrecioTransporte(float distancia, float famaDestino, int temporadaDestino, int personas, int clase, boolean roundTrip) {
+    @Override
+    public float calculoRoundTrip(float famaDestino, int temporadaDestino, int personas, int clase) {
+
+        float distancia=this.distanciaKM(this.destino.getPais(), this.destino.getRegion());
         float t;
         
         switch(temporadaDestino){
@@ -43,15 +68,29 @@ public class Avion extends Transporte{
             default:
                 t=1.2f;
         }
+        float c;
+        switch(clase){
+            case 0:
+                c=1;
+                break;
+            case 1:
+                c=1.5f;
+                break;
+            case 3:
+                c=2;
+                break;
+            default:
+                c=1.5f;
+        }
 
 
-        float total= (float) ((PRECIO_POR_KM/1000)*(((Math.pow(Math.log(distancia) / Math.log(5),2))*distancia)/((Math.sqrt(distancia))-(Math.log(distancia) / Math.log(5))))*(famaDestino/3)*t*clase*personas*1.8);
+        float total= (float) ((PRECIO_POR_KM/1000)*(((Math.pow(Math.log(distancia) / Math.log(5),2))*distancia)/((Math.sqrt(distancia))-(Math.log(distancia) / Math.log(5))))*(famaDestino/3)*t*c*personas*1.8);
         
-        return total;
+        return total*100;
     }
 
     @Override
-    float ETA(float distancia) {
+    public float ETA(float distancia) {
         return ((distancia/720)+0.5f);
     }
     

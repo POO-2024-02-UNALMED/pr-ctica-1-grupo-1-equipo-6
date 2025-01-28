@@ -167,12 +167,12 @@ public class Destino implements Serializable{
                 new Hotel("Mandarin Oriental New York",21,18,22,azar(7, 10),azar(100, 200)),
                 new Hotel("The St. Regis New York",9,30,20,azar(7, 10),azar(100, 200)))));
 
-        destinos.add(new Destino("Cartagena", "cartagena", "Colombia", "Bolívar", azar(0,5), azar(0,2),3, 
+        destinos.add(new Destino("Cartagena", "cartagena", "Colombia", "Bolivar", azar(0,5), azar(0,2),3, 
         List.of(new Hotel("Hotel Bocagrande",6,5,24,azar(7, 10),azar(30, 100)),
                 new Hotel("Gyatt Residency Cartagena",16,22,10,azar(7, 10),azar(30, 100)),
                 new Hotel("Hotel Cartagena Plaza",24,25,6,azar(7, 10),azar(30, 100)))));
 
-        destinos.add(new Destino("Lima", "lima", "Perú", "Lima", azar(0, 5), azar(0, 2), 4, 
+        destinos.add(new Destino("Lima", "lima", "Peru", "Lima", azar(0, 5), azar(0, 2), 4, 
         List.of(new Hotel("Hotel Lima San Isidro", 25, 20, 15, azar(7, 10), azar(30, 100)),
                 new Hotel("Inkari Suites Hotel", 22, 16, 12, azar(7, 10), azar(30, 100)),
                 new Hotel("Radisson Hotel Decapolis Square Miraflores", 20, 15, 10, azar(7, 10), azar(30, 100)))));
@@ -197,7 +197,7 @@ public class Destino implements Serializable{
                 new Hotel("Hotel Tayrona", 24, 16, 12, azar(7, 10), azar(30, 100)),
                 new Hotel("Milton Garden Inn Santa Marta", 26, 18, 10, azar(7, 10), azar(30, 100)))));
 
-        destinos.add(new Destino("Río de Janeiro", "rio de janeiro", "Brasil", "Río de Janeiro", azar(0, 5), azar(0, 2), 4, 
+        destinos.add(new Destino("Río de Janeiro", "rio de janeiro", "Brasil", "Rio de Janeiro", azar(0, 5), azar(0, 2), 4, 
         List.of(new Hotel("Hotel Copacabana", 25, 20, 15, azar(7, 10), azar(55, 135)),
             new Hotel("Hotel Ipanema", 23, 18, 14, azar(7, 10), azar(60, 135)),
             new Hotel("Hotel Leblon", 20, 15, 12, azar(7, 10), azar(55, 135)))));
@@ -216,12 +216,12 @@ public class Destino implements Serializable{
             new Hotel("\"Érase un hotel\"", 25, 18, 12, azar(7, 10), azar(55, 160)),
                 new Hotel("Hotel Claridge", 28, 22, 14, azar(7, 10), azar(55, 160)))));
 
-        destinos.add(new Destino("Barranquilla", "barranquilla", "Colombia", "Atlántico", azar(0, 5), azar(0, 2), 3, 
+        destinos.add(new Destino("Barranquilla", "barranquilla", "Colombia", "Atlantico", azar(0, 5), azar(0, 2), 3, 
         List.of(new Hotel("Hotel Sides Barranquilla", 20, 15, 10, azar(7, 10), azar(30, 100)),
                 new Hotel("GLS Hotel Grand Barranquilla", 22, 14, 12, azar(7, 10), azar(30, 100)),
                 new Hotel("Hotel Costa Mar", 25, 18, 10, azar(7, 10), azar(30, 100)))));
 
-        destinos.add(new Destino("San Andrés", "san andres", "Colombia", "San Andrés", azar(0, 5), azar(0, 2), 4, 
+        destinos.add(new Destino("San Andrés", "san andres", "Colombia", "San Andres", azar(0, 5), azar(0, 2), 4, 
         List.of(new Hotel("Decaroline Isleño", 18, 14, 10, azar(7, 10), azar(60, 120)),
                 new Hotel("Hotel Calypse Beach", 20, 15, 10, azar(7, 10), azar(60, 120)),
                 new Hotel("Hotel Casablanca", 22, 18, 12, azar(7, 10), azar(50, 120)))));
@@ -235,7 +235,7 @@ public class Destino implements Serializable{
                 new Hotel("Marlin Waterloo", 25, 18, 12, azar(7, 10), azar(96, 190)),
                 new Hotel("The Grange Pub", 28, 22, 14, azar(7, 10), azar(100, 185)))));
 
-        destinos.add(new Destino("Tokio", "tokyo", "Japón", "Kanto", azar(0, 5), azar(0, 2), 4, 
+        destinos.add(new Destino("Tokio", "tokyo", "Japon", "Kanto", azar(0, 5), azar(0, 2), 4, 
         List.of(new Hotel("Lucky Hotel", 30, 25, 20, azar(7, 10), azar(96, 178)),
                 new Hotel("Grand Super Bodhisattva Hotel Square Plaza", 28, 22, 18, azar(7, 10), azar(103, 201)),
                 new Hotel("The Shinjuku Resort", 26, 20, 15, azar(7, 10), azar(90, 185)))));
@@ -245,7 +245,7 @@ public class Destino implements Serializable{
                 new Hotel("Rockdale Grand Hotel", 30, 25, 18, azar(4, 10), azar(30, 100)),
                 new Hotel("Merlin Suites Sydney", 25, 20, 15, azar(4, 10), azar(30, 100)))));
 
-        destinos.add(new Destino("Dubái", "dubai", "Emiratos Árabes Unidos", "Dubái", azar(0, 5), azar(0, 2), 4, 
+        destinos.add(new Destino("Dubái", "dubai", "Emiratos Arabes Unidos", "Dubai", azar(0, 5), azar(0, 2), 4, 
         List.of(new Hotel("Al Habtoor Palace", 25, 20, 18, azar(9, 10), azar(348, 462)),
                 new Hotel("Palace Downtown", 30, 25, 20, 10, azar(360, 450)),
                 new Hotel("Mazaya Centre LEVA Hotel", 28, 22, 16, azar(8, 10), azar(300, 486)))));

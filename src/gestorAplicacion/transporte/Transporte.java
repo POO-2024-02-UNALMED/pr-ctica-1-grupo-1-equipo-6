@@ -1,9 +1,76 @@
 package gestorAplicacion.transporte;
 
-public abstract class Transporte {
-    abstract float calculoPrecioTransporte(float distancia, float famaDestino, int temporadaDestino, int personas, int clase);
+import java.time.LocalDate;
 
-    abstract float ETA(float distancia);
+import gestorAplicacion.reservacionHotel.Destino;
+import uiMain.uiTransporte;
+
+public abstract class Transporte {
+
+    protected Destino destino;
+    protected int personas;
+    private LocalDate fechaLlegar;
+    private LocalDate fechaSalir;
+    private boolean roundTrip=false;
+
+    public Transporte(Destino destino, int personas){
+        this.destino=destino;
+        this.personas=personas;
+    }
+
+    public Destino getDestino() {
+        return destino;
+    }
+    public void setDestino(Destino destino) {
+        this.destino = destino;
+    }
+
+    public int getPersonas() {
+        return personas;
+    }
+    public void setPersonas(int personas) {
+        this.personas = personas;
+    }
+
+    public boolean isRoundTrip() {
+        return roundTrip;
+    }
+    public void setRoundTrip(boolean roundTrip) {
+        this.roundTrip = roundTrip;
+    }
+
+    public void fechas(LocalDate fechaLlegada){
+        if(fechaLlegada.isEqual(LocalDate.now())||fechaLlegada.isBefore(LocalDate.now())){//Si la fecha de llegada es menor o igual a hoy
+            uiTransporte.fechas(this, false); //No se aceptan las fechas
+        }
+        else{
+            this.fechaLlegar=fechaLlegada;
+            this.fechaSalir=null;
+            uiTransporte.precios(this);
+        }
+        
+    }
+
+    public void fechas(LocalDate fechaLlegada, LocalDate fechaSalida){
+        if(fechaLlegada.isEqual(LocalDate.now())||fechaLlegada.isBefore(LocalDate.now())|| //Si la fecha de llegada es menor o igual a hoy,
+                fechaSalida.isEqual(LocalDate.now())||fechaSalida.isBefore(LocalDate.now())||  //o si la fecha de salida es menor o igual a hoy,
+                fechaSalida.isBefore(fechaLlegada)||fechaSalida.isEqual(fechaLlegada)){        //o si la fecha de salida es menor o igual a la de llegada:
+                    
+            uiTransporte.fechas(this, false); //No se aceptan las fechas
+        
+        }
+        else{
+            this.fechaLlegar=fechaLlegada;
+            this.fechaSalir=fechaSalida;
+            this.roundTrip=true;
+            uiTransporte.precios(this);
+        }
+    }
+
+    public abstract float calculoPrecioTransporte(float famaDestino, int temporadaDestino, int personas, int clase);
+    public abstract float calculoRoundTrip(float fama, int temporada, int personas, int i);
+
+    public abstract float ETA(float distancia);
 
     protected float distanciaKM(String pais, String region){
         if (pais.equalsIgnoreCase("Colombia")){
@@ -73,4 +140,6 @@ public abstract class Transporte {
             }
         }
     }
+
+    
 }
