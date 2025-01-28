@@ -22,7 +22,7 @@ public class uiMain {
             System.out.println("Por favor selecciona que deseas hacer:" + '\n' +
                 " 1. Reservar una habitación de hotel." + '\n' +
                 " 2. Reservar una Ruta de actividades y talleres." + '\n' +
-                " 3. Agendar planes complementarios." + '\n' +
+                " 3. Reservar medio de transporte." + '\n' +
                 " 4. Realizar pagos." + '\n' +
                 " 5. Cancelaciones." + '\n' +
                 " " + '\n' +
@@ -59,8 +59,8 @@ public class uiMain {
                         break;
 
                     case 3:
-                        System.out.println("Has seleccionado agendar planes complementarios." + '\n');
-                        // TODO: Meter funcionalidad de transporte aquí.
+                        System.out.println("Has seleccionado agendar un medio de transporte." + '\n');
+                        uiTransporte.go();
                         break;
 
                     case 4:

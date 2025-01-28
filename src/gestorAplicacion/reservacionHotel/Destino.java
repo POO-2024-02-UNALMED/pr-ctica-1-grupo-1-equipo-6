@@ -167,7 +167,7 @@ public class Destino implements Serializable{
                 new Hotel("Mandarin Oriental New York",21,18,22,azar(7, 10),azar(100, 200)),
                 new Hotel("The St. Regis New York",9,30,20,azar(7, 10),azar(100, 200)))));
 
-        destinos.add(new Destino("Cartagena", "cartagena", "Colombia", "Caribe", azar(0,5), azar(0,2),3, 
+        destinos.add(new Destino("Cartagena", "cartagena", "Colombia", "Bolívar", azar(0,5), azar(0,2),3, 
         List.of(new Hotel("Hotel Bocagrande",6,5,24,azar(7, 10),azar(30, 100)),
                 new Hotel("Gyatt Residency Cartagena",16,22,10,azar(7, 10),azar(30, 100)),
                 new Hotel("Hotel Cartagena Plaza",24,25,6,azar(7, 10),azar(30, 100)))));
