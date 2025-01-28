@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 public class Itinerario {
     private List<Integer> actividades;
-    private List Documentos;
-    private List precios;
+    private List<Integer> Documentos;
+    private List<Integer> precios;
     private int grupo1;
     private int grupo2;
-    private List fechas;
+    private List<Integer> fechas;
     private int lug1;
     private int lug2;
     private int lug3;
@@ -17,18 +17,18 @@ public class Itinerario {
     private int transporte;
     private int fecha;
     private int grupo;
-    public Itinerario(List actividades, List refrigerios, int fecha, int grupo, int transporte){
+    public Itinerario(List<Integer> actividades, List<Integer> refrigerios, int fecha, int grupo, int transporte){
         this(actividades, refrigerios, fecha, grupo);
         this.transporte = transporte;
     }
-    public Itinerario(List actividades, List refrigerios, int fecha, int grupo){
+    public Itinerario(List<Integer> actividades, List<Integer> refrigerios, int fecha, int grupo){
         this.actividades = actividades;
         this.refrigerios = refrigerios;
         this.fecha = fecha;
         this.grupo = grupo;
     }
     
-    public Itinerario(List Documentos, List precios, int grupo1, int grupo2, List fechas, int lug1, int lug2, int lug3, int lug4) {
+    public Itinerario(List<Integer> Documentos, List<Integer> precios, int grupo1, int grupo2, List<Integer> fechas, int lug1, int lug2, int lug3, int lug4) {
         this.Documentos = Documentos;
         this.precios = precios;
         this.grupo1 = grupo1;
@@ -59,19 +59,19 @@ public class Itinerario {
         this.actividades = actividades;
     }
 
-    public List getDocumentos() {
+    public List<Integer> getDocumentos() {
         return Documentos;
     }
 
-    public void setDocumentos(List Documentos) {
+    public void setDocumentos(List<Integer> Documentos) {
         this.Documentos = Documentos;
     }
 
-    public List getPrecios() {
+    public List<Integer> getPrecios() {
         return precios;
     }
 
-    public void setPrecios(List precios) {
+    public void setPrecios(List<Integer> precios) {
         this.precios = precios;
     }
 
@@ -91,11 +91,11 @@ public class Itinerario {
         this.grupo2 = grupo2;
     }
 
-    public List getFechas() {
+    public List<Integer> getFechas() {
         return fechas;
     }
 
-    public void setFechas(List fechas) {
+    public void setFechas(List<Integer> fechas) {
         this.fechas = fechas;
     }
 
