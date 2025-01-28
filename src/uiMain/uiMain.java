@@ -70,7 +70,7 @@ public class uiMain {
 
                     case 5:
                         System.out.println("Has seleccionado reservar un Evento." + '\n');
-                        uiEvento.ejecutarEvento();
+                        uiEvento.procesar();
                         break;
 
                     default:

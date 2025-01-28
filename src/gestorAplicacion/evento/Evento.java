@@ -1,26 +1,47 @@
 package gestorAplicacion.evento;
 
+import java.time.LocalDate;
+
 public class Evento {
-    private String tipoEvento;
-    private int numeroParticipantes;
-    private String[] recursosSolicitados;
+    private String nombre;
+    private LocalDate fecha;
+    private double precio;
 
-    public Evento(String tipoEvento, int numeroParticipantes, String[] recursosSolicitados) {
-        this.tipoEvento = tipoEvento;
-        this.numeroParticipantes = numeroParticipantes;
-        this.recursosSolicitados = recursosSolicitados;
+    public Evento(String nombre, LocalDate fecha, double precio) {
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.precio = precio;
     }
 
-    public void ajustarRecursos() {
-        // Lógica para ajustar los recursos solicitados según la disponibilidad
-        System.out.println("Ajustando los recursos para el evento...");
+    public String getNombre() {
+        return nombre;
     }
 
-    public void confirmarEvento() {
-        System.out.println("El evento ha sido confirmado: " + tipoEvento);
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String[] obtenerRecursosSolicitados() {
-        return recursosSolicitados;
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String detalles() {
+        return "Evento: " + nombre + ", Fecha: " + fecha + ", Precio: $" + precio;
+    }
+
+    public boolean esPrecioValido() {
+        return precio > 0;
     }
 }

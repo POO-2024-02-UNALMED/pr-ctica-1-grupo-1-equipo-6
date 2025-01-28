@@ -1,89 +1,104 @@
 package uiMain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Scanner;
 import gestorAplicacion.evento.*;
-
 public class uiEvento {
 
-    public static void ejecutarEvento() {
+    public static void procesar() {
         Scanner scanner = new Scanner(System.in);
 
-        String[] serviciosDisponibles = {
-            "Catering", "Proyector", "Personal de apoyo", "Sonido e iluminación", 
-            "Fotografía y video", "Decoración", "Wi-Fi", "Aire acondicionado/Calefacción"
-        };
+        // Paso 1: Crear el evento específico
+        System.out.println("¡Bienvenido a la agencia de viajes!");
+        String nombreEvento = obtenerNombreEvento(scanner);
+        
+        LocalDate fechaEvento = obtenerFechaEvento(scanner);
+        
+        double precioEvento = obtenerPrecioEvento(scanner);
+        
+        String tipoEvento = obtenerTipoEvento(scanner);
 
-        System.out.println("Servicios adicionales disponibles:");
-        for (int i = 0; i < serviciosDisponibles.length; i++) {
-            System.out.println((i + 1) + ". " + serviciosDisponibles[i]);
+        EventoEspecifico eventoEspecifico = new EventoEspecifico(nombreEvento, fechaEvento, precioEvento, tipoEvento);
+
+        if (!eventoEspecifico.esPrecioValido()) {
+            System.out.println("El precio del evento no es válido.");
+            return;
         }
 
-        System.out.println("Ingrese la capacidad máxima del salón: ");
-        int capacidadMaxima = scanner.nextInt();
-        scanner.nextLine();  
-
-        Salon salon = new Salon(capacidadMaxima, new String[0]);
-
-        System.out.println("Ingrese la fecha de la reserva (formato: yyyy-MM-dd): ");
-        String fechaReserva = scanner.nextLine();
-        System.out.println("Ingrese la hora de la reserva (formato: HH:mm): ");
-        String horaReserva = scanner.nextLine();
-        System.out.println("Ingrese el número de participantes: ");
-        int numeroParticipantes = scanner.nextInt();
-        scanner.nextLine(); 
-
-        ReservaSalon reserva = new ReservaSalon(fechaReserva, horaReserva, numeroParticipantes);
-
-        List<String> serviciosSeleccionados = new ArrayList<>();
-        System.out.println("Seleccione los servicios adicionales (Ingrese el número de la opción, separados por comas): ");
-        String serviciosInput = scanner.nextLine();
-        String[] serviciosElegidos = serviciosInput.split(",\\s*");
-
-        for (String servicio : serviciosElegidos) {
-            int opcion = Integer.parseInt(servicio.trim()) - 1;
-            if (opcion >= 0 && opcion < serviciosDisponibles.length) {
-                serviciosSeleccionados.add(serviciosDisponibles[opcion]);
-            }
+        if (!eventoEspecifico.esTipoEventoValido()) {
+            System.out.println("El tipo de evento no es válido.");
+            return;
         }
 
-        String[] serviciosArray = serviciosSeleccionados.toArray(new String[0]);
-        System.out.println("Ingrese el tipo de evento: ");
-        String tipoEvento = scanner.nextLine();
+        System.out.println("\nPaso 1: Creación del evento específico - " + eventoEspecifico.detalles());
 
-        Evento evento = new Evento(tipoEvento, numeroParticipantes, serviciosArray);
+        // Paso 2: Confirmación de los detalles del evento
+        System.out.println("¿Es correcto el evento? (Sí/No): ");
+        String confirmacionEvento = scanner.nextLine(); 
 
-        if (reserva.verificarDisponibilidad()) {
-            System.out.println("El salón está disponible solo por capacidad.");
-            evento.ajustarRecursos();
-            evento.confirmarEvento();
+        int numPersonas = obtenerNumeroPersonas(scanner);
+
+        System.out.println("Calculando el costo total...");
+        boolean reservaExitosa = Reserva.realizarReserva(eventoEspecifico, numPersonas);
+
+        if (!reservaExitosa) {
+            System.out.println("No se pudo completar la reserva.");
+            return;
+        }
+
+        confirmarReserva(scanner);
+
+        scanner.close();
+    }
+
+    private static String obtenerNombreEvento(Scanner scanner) {
+        System.out.print("Ingresa el nombre del evento: ");
+        return scanner.nextLine();
+    }
+
+    private static LocalDate obtenerFechaEvento(Scanner scanner) {
+        System.out.print("Ingresa la fecha del evento (formato: yyyy-mm-dd): ");
+        String fechaEvento = scanner.nextLine();
+        return LocalDate.parse(fechaEvento);
+    }
+
+    private static double obtenerPrecioEvento(Scanner scanner) {
+        double precio;
+        while (true) {
+            System.out.print("Ingresa el precio del evento: ");
+            precio = scanner.nextDouble();
+            scanner.nextLine(); 
+            if (precio > 0) break;
+            System.out.println("El precio debe ser mayor a cero.");
+        }
+        return precio;
+    }
+
+    private static String obtenerTipoEvento(Scanner scanner) {
+        System.out.print("Ingresa el tipo de evento (por ejemplo, Concierto, Conferencia, etc.): ");
+        return scanner.nextLine();
+    }
+
+    private static int obtenerNumeroPersonas(Scanner scanner) {
+        int numPersonas;
+        while (true) {
+            System.out.print("¿Cuántas personas desean asistir al evento? ");
+            numPersonas = scanner.nextInt();
+            scanner.nextLine(); 
+            if (numPersonas > 0) break;
+            System.out.println("El número de personas debe ser mayor a cero.");
+        }
+        return numPersonas;
+    }
+
+    private static void confirmarReserva(Scanner scanner) {
+        System.out.println("¿Deseas confirmar la reserva? (Sí/No): ");
+        String confirmacionReserva = scanner.nextLine(); 
+        if (confirmacionReserva.equalsIgnoreCase("Sí")) {
+            System.out.println("\nPaso 4: Finalizando reserva...");
+            System.out.println("¡Reserva confirmada con éxito!");
         } else {
-            System.out.println("El salón no está disponible por capacidad.");
+            System.out.println("Reserva cancelada.");
         }
-
-        if (reserva.verificarDisponibilidad(true)) {
-            System.out.println("El salón está disponible con capacidad y servicios adicionales.");
-            evento.ajustarRecursos();
-            evento.confirmarEvento();
-        } else {
-            System.out.println("El salón no está disponible con los servicios adicionales.");
-        }
-
-        if (salon.verificarCapacidad(evento.obtenerRecursosSolicitados().length)) {
-            salon.actualizarEstado("reservado");
-            System.out.println("El salón ha sido actualizado a 'reservado'.");
-        }
-
-        System.out.println("El salón ha sido confirmado para la fecha y hora solicitada.");
-        System.out.println("Detalles del evento: Capacidad del salón: " + salon.obtenerEstado() +
-                ", Servicios incluidos: " + String.join(", ", salon.obtenerServiciosAdicionales()));
-
-        evento.ajustarRecursos();
-        evento.confirmarEvento();
-
-        System.out.println("\nReserva confirmada: El evento '" + tipoEvento + "' ha sido confirmado con éxito.");
-
-
     }
 }
