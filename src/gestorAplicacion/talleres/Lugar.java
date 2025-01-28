@@ -14,7 +14,7 @@ public class Lugar implements Ubicacion {
         return nro;
     }
 
-    public List getSitios(){
+    public List<Integer> getSitios(){
         return sitios;
     }
 }
