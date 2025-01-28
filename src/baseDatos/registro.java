@@ -13,7 +13,7 @@ public class registro {
                 archivo.getParentFile().mkdirs(); 
             }
 
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/baseDatos/temp/registro.txt"))) {
                 oos.writeObject(registro);
                 System.out.println("La ruta se ha agendado exitosamente");
             }
@@ -23,7 +23,7 @@ public class registro {
     }
 
     public static Itinerario cargarRegistro(String nombreArchivo) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/baseDatos/temp/registro.txt"))) {
             return (Itinerario) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar el objeto Registro: " + e.getMessage());
@@ -31,7 +31,7 @@ public class registro {
         return null;
     }
 
-    public static void main(String[] args) {
+    static {
         String archivo = "temp/registro.txt";
 
         Itinerario registroEjemplo = new Itinerario(
