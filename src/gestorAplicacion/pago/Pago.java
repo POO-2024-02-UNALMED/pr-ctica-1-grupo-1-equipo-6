@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pago {
-    private static final double CARGO_MINIMO = 1000.0;
+    public static final double CARGO_MINIMO = 1000.0;
     private final List<Factura> historialFacturas;
     
     public Pago() {
