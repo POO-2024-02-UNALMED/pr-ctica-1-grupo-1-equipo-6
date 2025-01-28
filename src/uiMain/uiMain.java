@@ -24,7 +24,7 @@ public class uiMain {
                 " 2. Reservar una Ruta de actividades y talleres." + '\n' +
                 " 3. Reservar medio de transporte." + '\n' +
                 " 4. Realizar pagos." + '\n' +
-                " 5. Cancelaciones." + '\n' +
+                " 5. Reservar Eventos." + '\n' +
                 " " + '\n' +
                 " 0. Salir");
 
@@ -69,8 +69,8 @@ public class uiMain {
                         break;
 
                     case 5:
-                        System.out.println("Has ingresado al servicio de cancelaciones." + '\n');
-                        cancelaciones(); // TODO: Al correspondiente, comenzar a ejecutar su funcionalidad desde aquí.
+                        System.out.println("Has seleccionado reservar un Evento." + '\n');
+                        uiEvento.ejecutarEvento();
                         break;
 
                     default:
