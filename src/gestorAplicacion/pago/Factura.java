@@ -13,7 +13,7 @@ public class Factura {
 
     public Factura(double monto, Pago.MetodoPago metodo, String id, LocalDateTime fechaEmision) {
         this.monto = monto;
-        this.meto do = metodo;
+        this.metodo = metodo;
         this.id = id;
         this.fechaEmision = fechaEmision;
         this.estado = Pago.EstadoPago.COMPLETADO;
