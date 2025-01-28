@@ -1,18 +1,42 @@
-//Maneja el envío de notificaciones en el sistema.
+package gestorAplicacion.pago;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Notificacion {
-    private static final String PREFIJO_NOTIFICACION = "Notificación: ";
+    private final List<String> historialNotificaciones;
     
-    /**
-     * Envía una notificación con el mensaje especificado.
-     * @param mensaje El mensaje a enviar (no puede ser null)
-     * @throws IllegalArgumentException si el mensaje es null
-     */
-    public void enviarNotificacion(String mensaje) {
-        if (mensaje == null) {
-            throw new IllegalArgumentException("El mensaje no puede ser null");
-        }
-        
-        System.out.println(PREFIJO_NOTIFICACION + mensaje);
+    public Notificacion() {
+        this.historialNotificaciones = new ArrayList<>();
+    }
+
+    // Ligadura dinámica: Sobrecarga de métodos enviar()
+    public void enviar(String mensaje) {
+        String notificacion = String.format("[%s] %s", 
+            LocalDateTime.now(), mensaje);
+        historialNotificaciones.add(notificacion);
+        System.out.println("NOTIFICACIÓN: " + notificacion);
+    }
+
+    public void enviar(Factura factura) {
+        String mensaje = String.format("""
+            Pago procesado exitosamente
+            ID: %s
+            Método: %s
+            Monto: $%.2f""",
+            factura.getId(),
+            factura.getMetodo().getDescripcion(),
+            factura.getMonto()
+        );
+        enviar(mensaje);
+    }
+
+    public void enviarError(String error) {
+        enviar("ERROR: " + error);
+    }
+
+    public List<String> getHistorialNotificaciones() {
+        return new ArrayList<>(historialNotificaciones);
     }
 }
