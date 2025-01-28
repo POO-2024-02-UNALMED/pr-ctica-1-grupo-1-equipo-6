@@ -1,3 +1,6 @@
+//Codificado por Alejandro Pérez Barrera
+//Esta clase contiene atributos y metodos de los transportes
+
 package gestorAplicacion.transporte;
 
 import java.time.LocalDate;
@@ -9,13 +12,15 @@ public abstract class Transporte {
 
     protected Destino destino;
     protected int personas;
-    private LocalDate fechaLlegar;
-    private LocalDate fechaSalir;
+    protected LocalDate fechaLlegar;
+    protected LocalDate fechaSalir;
     private boolean roundTrip=false;
+    protected float distancia;
 
     public Transporte(Destino destino, int personas){
         this.destino=destino;
         this.personas=personas;
+        this.distancia=distanciaKM(destino.getPais(), destino.getRegion());
     }
 
     public Destino getDestino() {
@@ -38,8 +43,14 @@ public abstract class Transporte {
     public void setRoundTrip(boolean roundTrip) {
         this.roundTrip = roundTrip;
     }
+    public float getDistancia() {
+        return distancia;
+    }
+    public void setDistancia(float distancia) {
+        this.distancia = distancia;
+    }
 
-    public void fechas(LocalDate fechaLlegada){
+    public void fechas(LocalDate fechaLlegada){//Fechas con solo un valor verifica la validez para transporte de ida
         if(fechaLlegada.isEqual(LocalDate.now())||fechaLlegada.isBefore(LocalDate.now())){//Si la fecha de llegada es menor o igual a hoy
             uiTransporte.fechas(this, false); //No se aceptan las fechas
         }
@@ -50,7 +61,7 @@ public abstract class Transporte {
         }
         
     }
-
+//Fechas con dos valores verifica reservas para transporte de ida y vuelta
     public void fechas(LocalDate fechaLlegada, LocalDate fechaSalida){
         if(fechaLlegada.isEqual(LocalDate.now())||fechaLlegada.isBefore(LocalDate.now())|| //Si la fecha de llegada es menor o igual a hoy,
                 fechaSalida.isEqual(LocalDate.now())||fechaSalida.isBefore(LocalDate.now())||  //o si la fecha de salida es menor o igual a hoy,
@@ -67,12 +78,14 @@ public abstract class Transporte {
         }
     }
 
+    //Estos son los metodos de calculo de precio, cada transporte calcula precios diferentes, por lo que tienen implementaciones distintas
     public abstract float calculoPrecioTransporte(float famaDestino, int temporadaDestino, int personas, int clase);
     public abstract float calculoRoundTrip(float fama, int temporada, int personas, int i);
 
-    public abstract float ETA(float distancia);
 
-    protected float distanciaKM(String pais, String region){
+    public abstract float ETA(float distancia);//Eta es el tiempo que se demora llegar al destino
+
+    protected float distanciaKM(String pais, String region){//Distancia es la distancia hasta el destino
         if (pais.equalsIgnoreCase("Colombia")){
             if(region.equalsIgnoreCase("Bolívar")){
                 return 460.88f;

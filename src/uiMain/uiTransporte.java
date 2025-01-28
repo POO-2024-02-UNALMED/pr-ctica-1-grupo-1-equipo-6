@@ -1,3 +1,6 @@
+//Codificado por Alejandro Pérez Barrera
+//Esta clase es la interfaz para reservas el transporte
+
 package uiMain;
 
 import java.time.LocalDate;
@@ -334,6 +337,7 @@ public class uiTransporte extends uiMain{
         }
 
         System.out.println("El precio total de tu reserva es de: $"+(String.format("%,.2f",(transporte.calculoRoundTrip(transporte.getDestino().getFama(), transporte.getDestino().getTemporada(), transporte.getPersonas(), eleccion)))));
+        System.out.println("El tiempo total de tu viaje será de: "+transporte.ETA(transporte.getDistancia())+" horas.");
     }
 
 

@@ -13,7 +13,7 @@ public class Autobus extends Transporte{
     @Override
     public float calculoPrecioTransporte(float famaDestino, int temporadaDestino, int personas, int clase) {
          
-        float distancia=this.distanciaKM(this.destino.getPais(), this.destino.getRegion());
+        float distancia=this.distancia;
         float t;
         
         switch(temporadaDestino){
@@ -53,7 +53,7 @@ public class Autobus extends Transporte{
     @Override
     public float calculoRoundTrip(float famaDestino, int temporadaDestino, int personas, int clase) {
 
-        float distancia=this.distanciaKM(this.destino.getPais(), this.destino.getRegion());
+        float distancia=this.distancia;//Sin comentarios
         float t;
         
         
